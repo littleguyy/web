@@ -1,4 +1,5 @@
-1. 在TCP连接中，recv等函数默认为阻塞模式(block)，即直到有数据到来之前函数不会返回，而我们有时则需要一种超时机制使其在一定时间后返回而不管是否有数据到来，这里我们就会用到setsockopt()函数：
+http://blog.csdn.net/astraylinux/article/details/8624755
+在TCP连接中，recv等函数默认为阻塞模式(block)，即直到有数据到来之前函数不会返回，而我们有时则需要一种超时机制使其在一定时间后返回而不管是否有数据到来，这里我们就会用到setsockopt()函数：
 -    int  setsockopt(int  s, int level, int optname, void* optval, socklen_t* optlen);
 -    这里我们要涉及到一个结构：
 `    struct timeval`
