@@ -1,0 +1,37 @@
+1. 在TCP连接中，recv等函数默认为阻塞模式(block)，即直到有数据到来之前函数不会返回，而我们有时则需要一种超时机制使其在一定时间后返回而不管是否有数据到来，这里我们就会用到setsockopt()函数：
+-    int  setsockopt(int  s, int level, int optname, void* optval, socklen_t* optlen);
+-    这里我们要涉及到一个结构：
+`    struct timeval`
+`     {`
+`            time_t tv_sec;`
+`            time_t tv_usec;`
+`    };`
+    这里第一个域的单位为秒，第二个域的单位为微秒。
+`    struct timeval tv_out;`
+`    tv_out.tv_sec = 1;`
+`    tv_out.tv_usec = 0;`
+    填充这个结构后，我们就可以以如下的方式调用这个函数：
+    `setsockopt(fd, SOL_SOCKET, SO_RCVTIMEO, &tv_out, sizeof(tv_out));`(具体参数可以man一下，或查看MSDN)
+    这样我们就设定了recv()函数的超时机制，当超过tv_out设定的时间而没有数据到来时recv()就会返回0值。
+
+    第二个我们要介绍的是多路复用机制，也就是同时监听多个套接字连接。
+    `int select(int n, fd_set* readfds, fd_set* writefds, fd_set* exceptfds, struct timeval* timeout);`
+    这里涉及到了fd_set结构：
+    `typedef struct fd_set`
+    `{`
+    `        u_int fd_count;`
+    `        int fd_array[FD_SETSIZE];`
+    `}`
+    fd_count为fd_set结构中包含的套接字个数，fd_array唯一个int 数组，包含了我们要监听的套接字。
+    首先我们需要使用FD_SET将我们要监听的套接字添加到fd_set结构中：
+    `fd_set readfd;`
+    `FD_SET(fd, &readfd);`
+    然后我们这样调用select函数：
+    `select(max_fd + 1, &readfd, NULL, NULL, NULL);`(具体参数可以man一下，或查看MSDN)
+    `FD_ISSET(fd, &readfd);`
+    其中max_fd为我们要监听的套接字中值最大的一个，同时在调用select是要将其加1，readfd即为我们监听的要进行读操作的套接字连接，第三个参数是我们监听的要进行写操作的套接字连接，第四个参数用于异常，而最后一个参数可以用来设定超时，这里同样使用了struct timeval结构，可以实现与前面介绍的同样的效果。这里如果连接进来的话select即返回一个大于零的值，然后我们调用FD_ISSET宏来检测具体是那一个套接字有数据进来(FD_ISSET返回非零值)。
+
+    最后介绍的是另一种实现非阻塞的方法，这种方法在有些应用中会起到一定作用，尤其是在select()函数监听的套接字个数超过1024个时(因为fd_set结构在大部分UNIX系统中都对其可以监听的套接字个数作了1024的限制，如果要突破这个限制，必须修改头文件并重新编译内核)，我们就不能使用select多路复用机制。
+    拿recv()函数来说，我们可以这样进行调用：
+    `recv(fd, buf, sizeof(buf), MSG_DONTWAIT);`
+    注意到我们这里采用了MSG_DONTWAIT标志，它的作用是告诉recv()函数如果有数据到来的话就接受全部数据并立刻返回，没有数据的话也是立刻返回，而不进行任何的等待。采用这个机制就可以在多于1024个套接字连接时使用for()循环对全部的连接进行监听。
