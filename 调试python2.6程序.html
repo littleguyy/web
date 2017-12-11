@@ -1,0 +1,186 @@
+<h4 style="background-color: white; color: #444444; font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: normal; line-height: 22px; margin: 0px 0px 15px;">
+调试</h4>
+<div class="x-wiki-info" style="background-color: white; color: #666666; font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: 14px;">
+阅读: 53026</div>
+<hr style="background-color: white; border-bottom: 0px; border-image: initial; border-left: 0px; border-right: 0px; border-top-color: rgb(221, 221, 221); border-top-style: solid; box-sizing: content-box; color: #666666; font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: 14px; height: 0px; margin: 15px 0px;" />
+<div class="x-wiki-content x-main-content" style="background-color: white; color: #666666; font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: 14px;">
+<div style="margin-bottom: 15px; white-space: pre-wrap; word-wrap: break-word;">
+程序能一次写完并正常运行的概率很小，基本不超过1%。总会有各种各样的bug需要修正。有的bug很简单，看看错误信息就知道，有的bug很复杂，我们需要知道出错时，哪些变量的值是正确的，哪些变量的值是错误的，因此，需要一整套调试程序的手段来修复bug。</div>
+<div style="margin-bottom: 15px; margin-top: 15px; white-space: pre-wrap; word-wrap: break-word;">
+第一种方法简单直接粗暴有效，就是用<code style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #dd0055; font-family: Consolas, monospace, serif; font-size: 12px; padding: 0px 4px; white-space: nowrap;">print</code>把可能有问题的变量打印出来看看：</div>
+<pre style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #444444; font-family: Consolas, monospace, serif; font-size: 12px; font-stretch: normal; line-height: 18px; margin-bottom: 15px; margin-top: 15px; overflow: auto; padding: 10px; tab-size: 4; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"><code class="python"><span class="comment" style="color: #999988; font-style: italic;"># err.py</span>
+<span class="function"><span class="keyword" style="color: #333333; font-weight: bold;">def</span> <span class="title" style="color: #990000; font-weight: bold;">foo</span><span class="params">(s)</span>:</span>
+    n = int(s)
+    <span class="keyword" style="color: #333333; font-weight: bold;">print</span> <span class="string" style="color: #dd1144;">'&gt;&gt;&gt; n = %d'</span> % n
+    <span class="keyword" style="color: #333333; font-weight: bold;">return</span> <span class="number" style="color: #009999;">10</span> / n
+
+<span class="function"><span class="keyword" style="color: #333333; font-weight: bold;">def</span> <span class="title" style="color: #990000; font-weight: bold;">main</span><span class="params">()</span>:</span>
+    foo(<span class="string" style="color: #dd1144;">'0'</span>)
+
+main()
+</code></pre>
+<div style="margin-bottom: 15px; margin-top: 15px; white-space: pre-wrap; word-wrap: break-word;">
+执行后在输出中查找打印的变量值：</div>
+<pre style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #444444; font-family: Consolas, monospace, serif; font-size: 12px; font-stretch: normal; line-height: 18px; margin-bottom: 15px; margin-top: 15px; overflow: auto; padding: 10px; tab-size: 4; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"><code class="sql">$ python err.py
+&gt;&gt;&gt; n = 0
+Traceback (most recent <span class="operator"><span class="keyword" style="color: #333333; font-weight: bold;">call</span> <span class="keyword" style="color: #333333; font-weight: bold;">last</span>):
+  ...
+ZeroDivisionError: <span class="keyword" style="color: #333333; font-weight: bold;">integer</span> division <span class="keyword" style="color: #333333; font-weight: bold;">or</span> modulo <span class="keyword" style="color: #333333; font-weight: bold;">by</span> zero
+</span></code></pre>
+<div style="margin-bottom: 15px; margin-top: 15px; white-space: pre-wrap; word-wrap: break-word;">
+用<code style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #dd0055; font-family: Consolas, monospace, serif; font-size: 12px; padding: 0px 4px; white-space: nowrap;">print</code>最大的坏处是将来还得删掉它，想想程序里到处都是<code style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #dd0055; font-family: Consolas, monospace, serif; font-size: 12px; padding: 0px 4px; white-space: nowrap;">print</code>，运行结果也会包含很多垃圾信息。所以，我们又有第二种方法。</div>
+<h3 style="color: #444444; font-size: 18px; font-weight: normal; line-height: 24px; margin: 25px 0px 15px;">
+<a href="https://www.blogger.com/null" name="#-E6-96-AD-E8-A8-80" style="background: transparent; color: #0593d3; cursor: pointer;"></a>断言</h3>
+<div style="margin-bottom: 15px; margin-top: 15px; white-space: pre-wrap; word-wrap: break-word;">
+凡是用<code style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #dd0055; font-family: Consolas, monospace, serif; font-size: 12px; padding: 0px 4px; white-space: nowrap;">print</code>来辅助查看的地方，都可以用断言（assert）来替代：</div>
+<pre style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #444444; font-family: Consolas, monospace, serif; font-size: 12px; font-stretch: normal; line-height: 18px; margin-bottom: 15px; margin-top: 15px; overflow: auto; padding: 10px; tab-size: 4; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"><code class="python"><span class="comment" style="color: #999988; font-style: italic;"># err.py</span>
+<span class="function"><span class="keyword" style="color: #333333; font-weight: bold;">def</span> <span class="title" style="color: #990000; font-weight: bold;">foo</span><span class="params">(s)</span>:</span>
+    n = int(s)
+    <span class="keyword" style="color: #333333; font-weight: bold;">assert</span> n != <span class="number" style="color: #009999;">0</span>, <span class="string" style="color: #dd1144;">'n is zero!'</span>
+    <span class="keyword" style="color: #333333; font-weight: bold;">return</span> <span class="number" style="color: #009999;">10</span> / n
+
+<span class="function"><span class="keyword" style="color: #333333; font-weight: bold;">def</span> <span class="title" style="color: #990000; font-weight: bold;">main</span><span class="params">()</span>:</span>
+    foo(<span class="string" style="color: #dd1144;">'0'</span>)
+</code></pre>
+<div style="margin-bottom: 15px; margin-top: 15px; white-space: pre-wrap; word-wrap: break-word;">
+<code style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #dd0055; font-family: Consolas, monospace, serif; font-size: 12px; padding: 0px 4px; white-space: nowrap;">assert</code>的意思是，表达式<code style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #dd0055; font-family: Consolas, monospace, serif; font-size: 12px; padding: 0px 4px; white-space: nowrap;">n != 0</code>应该是<code style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #dd0055; font-family: Consolas, monospace, serif; font-size: 12px; padding: 0px 4px; white-space: nowrap;">True</code>，否则，后面的代码就会出错。</div>
+<div style="margin-bottom: 15px; margin-top: 15px; white-space: pre-wrap; word-wrap: break-word;">
+如果断言失败，<code style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #dd0055; font-family: Consolas, monospace, serif; font-size: 12px; padding: 0px 4px; white-space: nowrap;">assert</code>语句本身就会抛出<code style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #dd0055; font-family: Consolas, monospace, serif; font-size: 12px; padding: 0px 4px; white-space: nowrap;">AssertionError</code>：</div>
+<pre style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #444444; font-family: Consolas, monospace, serif; font-size: 12px; font-stretch: normal; line-height: 18px; margin-bottom: 15px; margin-top: 15px; overflow: auto; padding: 10px; tab-size: 4; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"><code class="sql">$ python err.py
+Traceback (most recent <span class="operator"><span class="keyword" style="color: #333333; font-weight: bold;">call</span> <span class="keyword" style="color: #333333; font-weight: bold;">last</span>):
+  ...
+AssertionError: n <span class="keyword" style="color: #333333; font-weight: bold;">is</span> zero!
+</span></code></pre>
+<div style="margin-bottom: 15px; margin-top: 15px; white-space: pre-wrap; word-wrap: break-word;">
+程序中如果到处充斥着<code style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #dd0055; font-family: Consolas, monospace, serif; font-size: 12px; padding: 0px 4px; white-space: nowrap;">assert</code>，和<code style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #dd0055; font-family: Consolas, monospace, serif; font-size: 12px; padding: 0px 4px; white-space: nowrap;">print</code>相比也好不到哪去。不过，启动Python解释器时可以用<code style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #dd0055; font-family: Consolas, monospace, serif; font-size: 12px; padding: 0px 4px; white-space: nowrap;">-O</code>参数来关闭<code style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #dd0055; font-family: Consolas, monospace, serif; font-size: 12px; padding: 0px 4px; white-space: nowrap;">assert</code>：</div>
+<pre style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #444444; font-family: Consolas, monospace, serif; font-size: 12px; font-stretch: normal; line-height: 18px; margin-bottom: 15px; margin-top: 15px; overflow: auto; padding: 10px; tab-size: 4; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"><code class="sql">$ python -O err.py
+Traceback (most recent <span class="operator"><span class="keyword" style="color: #333333; font-weight: bold;">call</span> <span class="keyword" style="color: #333333; font-weight: bold;">last</span>):
+  ...
+ZeroDivisionError: <span class="keyword" style="color: #333333; font-weight: bold;">integer</span> division <span class="keyword" style="color: #333333; font-weight: bold;">or</span> modulo <span class="keyword" style="color: #333333; font-weight: bold;">by</span> zero
+</span></code></pre>
+<div style="margin-bottom: 15px; margin-top: 15px; white-space: pre-wrap; word-wrap: break-word;">
+关闭后，你可以把所有的<code style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #dd0055; font-family: Consolas, monospace, serif; font-size: 12px; padding: 0px 4px; white-space: nowrap;">assert</code>语句当成<code style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #dd0055; font-family: Consolas, monospace, serif; font-size: 12px; padding: 0px 4px; white-space: nowrap;">pass</code>来看。</div>
+<h3 style="color: #444444; font-size: 18px; font-weight: normal; line-height: 24px; margin: 25px 0px 15px;">
+<a href="https://www.blogger.com/null" name="#logging" style="background: transparent; color: #0593d3; cursor: pointer;"></a>logging</h3>
+<div style="margin-bottom: 15px; margin-top: 15px; white-space: pre-wrap; word-wrap: break-word;">
+把<code style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #dd0055; font-family: Consolas, monospace, serif; font-size: 12px; padding: 0px 4px; white-space: nowrap;">print</code>替换为<code style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #dd0055; font-family: Consolas, monospace, serif; font-size: 12px; padding: 0px 4px; white-space: nowrap;">logging</code>是第3种方式，和<code style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #dd0055; font-family: Consolas, monospace, serif; font-size: 12px; padding: 0px 4px; white-space: nowrap;">assert</code>比，<code style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #dd0055; font-family: Consolas, monospace, serif; font-size: 12px; padding: 0px 4px; white-space: nowrap;">logging</code>不会抛出错误，而且可以输出到文件：</div>
+<pre style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #444444; font-family: Consolas, monospace, serif; font-size: 12px; font-stretch: normal; line-height: 18px; margin-bottom: 15px; margin-top: 15px; overflow: auto; padding: 10px; tab-size: 4; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"><code class="python"><span class="comment" style="color: #999988; font-style: italic;"># err.py</span>
+<span class="keyword" style="color: #333333; font-weight: bold;">import</span> logging
+
+s = <span class="string" style="color: #dd1144;">'0'</span>
+n = int(s)
+logging.info(<span class="string" style="color: #dd1144;">'n = %d'</span> % n)
+<span class="keyword" style="color: #333333; font-weight: bold;">print</span> <span class="number" style="color: #009999;">10</span> / n
+</code></pre>
+<div style="margin-bottom: 15px; margin-top: 15px; white-space: pre-wrap; word-wrap: break-word;">
+<code style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #dd0055; font-family: Consolas, monospace, serif; font-size: 12px; padding: 0px 4px; white-space: nowrap;">logging.info()</code>就可以输出一段文本。运行，发现除了<code style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #dd0055; font-family: Consolas, monospace, serif; font-size: 12px; padding: 0px 4px; white-space: nowrap;">ZeroDivisionError</code>，没有任何信息。怎么回事？</div>
+<div style="margin-bottom: 15px; margin-top: 15px; white-space: pre-wrap; word-wrap: break-word;">
+别急，在<code style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #dd0055; font-family: Consolas, monospace, serif; font-size: 12px; padding: 0px 4px; white-space: nowrap;">import logging</code>之后添加一行配置再试试：</div>
+<pre style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #444444; font-family: Consolas, monospace, serif; font-size: 12px; font-stretch: normal; line-height: 18px; margin-bottom: 15px; margin-top: 15px; overflow: auto; padding: 10px; tab-size: 4; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"><code class="java"><span class="keyword" style="color: #333333; font-weight: bold;">import</span> logging
+logging.basicConfig(level=logging.INFO)
+</code></pre>
+<div style="margin-bottom: 15px; margin-top: 15px; white-space: pre-wrap; word-wrap: break-word;">
+看到输出了：</div>
+<pre style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #444444; font-family: Consolas, monospace, serif; font-size: 12px; font-stretch: normal; line-height: 18px; margin-bottom: 15px; margin-top: 15px; overflow: auto; padding: 10px; tab-size: 4; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"><code class="sql">$ python err.py
+INFO:root:n = 0
+Traceback (most recent <span class="operator"><span class="keyword" style="color: #333333; font-weight: bold;">call</span> <span class="keyword" style="color: #333333; font-weight: bold;">last</span>):
+  File <span class="string" style="color: #dd1144;">"err.py"</span>, line <span class="number" style="color: #009999;">8</span>, <span class="keyword" style="color: #333333; font-weight: bold;">in</span> &lt;<span class="keyword" style="color: #333333; font-weight: bold;">module</span>&gt;
+    print <span class="number" style="color: #009999;">10</span> / n
+ZeroDivisionError: <span class="keyword" style="color: #333333; font-weight: bold;">integer</span> division <span class="keyword" style="color: #333333; font-weight: bold;">or</span> modulo <span class="keyword" style="color: #333333; font-weight: bold;">by</span> zero
+</span></code></pre>
+<div style="margin-bottom: 15px; margin-top: 15px; white-space: pre-wrap; word-wrap: break-word;">
+这就是<code style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #dd0055; font-family: Consolas, monospace, serif; font-size: 12px; padding: 0px 4px; white-space: nowrap;">logging</code>的好处，它允许你指定记录信息的级别，有<code style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #dd0055; font-family: Consolas, monospace, serif; font-size: 12px; padding: 0px 4px; white-space: nowrap;">debug</code>，<code style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #dd0055; font-family: Consolas, monospace, serif; font-size: 12px; padding: 0px 4px; white-space: nowrap;">info</code>，<code style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #dd0055; font-family: Consolas, monospace, serif; font-size: 12px; padding: 0px 4px; white-space: nowrap;">warning</code>，<code style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #dd0055; font-family: Consolas, monospace, serif; font-size: 12px; padding: 0px 4px; white-space: nowrap;">error</code>等几个级别，当我们指定<code style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #dd0055; font-family: Consolas, monospace, serif; font-size: 12px; padding: 0px 4px; white-space: nowrap;">level=INFO</code>时，<code style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #dd0055; font-family: Consolas, monospace, serif; font-size: 12px; padding: 0px 4px; white-space: nowrap;">logging.debug</code>就不起作用了。同理，指定<code style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #dd0055; font-family: Consolas, monospace, serif; font-size: 12px; padding: 0px 4px; white-space: nowrap;">level=WARNING</code>后，<code style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #dd0055; font-family: Consolas, monospace, serif; font-size: 12px; padding: 0px 4px; white-space: nowrap;">debug</code>和<code style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #dd0055; font-family: Consolas, monospace, serif; font-size: 12px; padding: 0px 4px; white-space: nowrap;">info</code>就不起作用了。这样一来，你可以放心地输出不同级别的信息，也不用删除，最后统一控制输出哪个级别的信息。</div>
+<div style="margin-bottom: 15px; margin-top: 15px; white-space: pre-wrap; word-wrap: break-word;">
+<code style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #dd0055; font-family: Consolas, monospace, serif; font-size: 12px; padding: 0px 4px; white-space: nowrap;">logging</code>的另一个好处是通过简单的配置，一条语句可以同时输出到不同的地方，比如console和文件。</div>
+<h3 style="color: #444444; font-size: 18px; font-weight: normal; line-height: 24px; margin: 25px 0px 15px;">
+<a href="https://www.blogger.com/null" name="#pdb" style="background: transparent; color: #0593d3; cursor: pointer;"></a>pdb</h3>
+<div style="margin-bottom: 15px; margin-top: 15px; white-space: pre-wrap; word-wrap: break-word;">
+第4种方式是启动Python的调试器pdb，让程序以单步方式运行，可以随时查看运行状态。我们先准备好程序：</div>
+<pre style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #444444; font-family: Consolas, monospace, serif; font-size: 12px; font-stretch: normal; line-height: 18px; margin-bottom: 15px; margin-top: 15px; overflow: auto; padding: 10px; tab-size: 4; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"><code class="php"><span class="comment" style="color: #999988; font-style: italic;"># err.py</span>
+s = <span class="string" style="color: #dd1144;">'0'</span>
+n = int(s)
+<span class="keyword" style="color: #333333; font-weight: bold;">print</span> <span class="number" style="color: #009999;">10</span> / n
+</code></pre>
+<div style="margin-bottom: 15px; margin-top: 15px; white-space: pre-wrap; word-wrap: break-word;">
+然后启动：</div>
+<pre style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #444444; font-family: Consolas, monospace, serif; font-size: 12px; font-stretch: normal; line-height: 18px; margin-bottom: 15px; margin-top: 15px; overflow: auto; padding: 10px; tab-size: 4; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"><code class="xml">$ python -m pdb err.py
+&gt; /Users/michael/Github/sicp/err.py(2)<span class="tag" style="color: navy;">&lt;<span class="title">module</span>&gt;</span>()
+-&gt; s = '0'
+</code></pre>
+<div style="margin-bottom: 15px; margin-top: 15px; white-space: pre-wrap; word-wrap: break-word;">
+以参数<code style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #dd0055; font-family: Consolas, monospace, serif; font-size: 12px; padding: 0px 4px; white-space: nowrap;">-m pdb</code>启动后，pdb定位到下一步要执行的代码<code style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #dd0055; font-family: Consolas, monospace, serif; font-size: 12px; padding: 0px 4px; white-space: nowrap;">-&gt; s = '0'</code>。输入命令<code style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #dd0055; font-family: Consolas, monospace, serif; font-size: 12px; padding: 0px 4px; white-space: nowrap;">l</code>来查看代码：</div>
+<pre style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #444444; font-family: Consolas, monospace, serif; font-size: 12px; font-stretch: normal; line-height: 18px; margin-bottom: 15px; margin-top: 15px; overflow: auto; padding: 10px; tab-size: 4; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"><code class="php">(Pdb) l
+  <span class="number" style="color: #009999;">1</span>     <span class="comment" style="color: #999988; font-style: italic;"># err.py</span>
+  <span class="number" style="color: #009999;">2</span>  -&gt; s = <span class="string" style="color: #dd1144;">'0'</span>
+  <span class="number" style="color: #009999;">3</span>     n = int(s)
+  <span class="number" style="color: #009999;">4</span>     <span class="keyword" style="color: #333333; font-weight: bold;">print</span> <span class="number" style="color: #009999;">10</span> / n
+[EOF]
+</code></pre>
+<div style="margin-bottom: 15px; margin-top: 15px; white-space: pre-wrap; word-wrap: break-word;">
+输入命令<code style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #dd0055; font-family: Consolas, monospace, serif; font-size: 12px; padding: 0px 4px; white-space: nowrap;">n</code>可以单步执行代码：</div>
+<pre style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #444444; font-family: Consolas, monospace, serif; font-size: 12px; font-stretch: normal; line-height: 18px; margin-bottom: 15px; margin-top: 15px; overflow: auto; padding: 10px; tab-size: 4; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"><code class="xml">(Pdb) n
+&gt; /Users/michael/Github/sicp/err.py(3)<span class="tag" style="color: navy;">&lt;<span class="title">module</span>&gt;</span>()
+-&gt; n = int(s)
+(Pdb) n
+&gt; /Users/michael/Github/sicp/err.py(4)<span class="tag" style="color: navy;">&lt;<span class="title">module</span>&gt;</span>()
+-&gt; print 10 / n
+</code></pre>
+<div style="margin-bottom: 15px; margin-top: 15px; white-space: pre-wrap; word-wrap: break-word;">
+任何时候都可以输入命令<code style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #dd0055; font-family: Consolas, monospace, serif; font-size: 12px; padding: 0px 4px; white-space: nowrap;">p 变量名</code>来查看变量：</div>
+<pre style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #444444; font-family: Consolas, monospace, serif; font-size: 12px; font-stretch: normal; line-height: 18px; margin-bottom: 15px; margin-top: 15px; overflow: auto; padding: 10px; tab-size: 4; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"><code class="undefined">(Pdb) p s
+'0'
+(Pdb) p n
+0
+</code></pre>
+<div style="margin-bottom: 15px; margin-top: 15px; white-space: pre-wrap; word-wrap: break-word;">
+输入命令<code style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #dd0055; font-family: Consolas, monospace, serif; font-size: 12px; padding: 0px 4px; white-space: nowrap;">q</code>结束调试，退出程序：</div>
+<pre style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #444444; font-family: Consolas, monospace, serif; font-size: 12px; font-stretch: normal; line-height: 18px; margin-bottom: 15px; margin-top: 15px; overflow: auto; padding: 10px; tab-size: 4; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"><code class="xml">(Pdb) n
+ZeroDivisionError: 'integer division or modulo by zero'
+&gt; /Users/michael/Github/sicp/err.py(4)<span class="tag" style="color: navy;">&lt;<span class="title">module</span>&gt;</span>()
+-&gt; print 10 / n
+(Pdb) q
+</code></pre>
+<div style="margin-bottom: 15px; margin-top: 15px; white-space: pre-wrap; word-wrap: break-word;">
+这种通过pdb在命令行调试的方法理论上是万能的，但实在是太麻烦了，如果有一千行代码，要运行到第999行得敲多少命令啊。还好，我们还有另一种调试方法。</div>
+<h3 style="color: #444444; font-size: 18px; font-weight: normal; line-height: 24px; margin: 25px 0px 15px;">
+<a href="https://www.blogger.com/null" name="#pdb-set_trace-" style="background: transparent; color: #0593d3; cursor: pointer;"></a>pdb.set_trace()</h3>
+<div style="margin-bottom: 15px; margin-top: 15px; white-space: pre-wrap; word-wrap: break-word;">
+这个方法也是用pdb，但是不需要单步执行，我们只需要<code style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #dd0055; font-family: Consolas, monospace, serif; font-size: 12px; padding: 0px 4px; white-space: nowrap;">import pdb</code>，然后，在可能出错的地方放一个<code style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #dd0055; font-family: Consolas, monospace, serif; font-size: 12px; padding: 0px 4px; white-space: nowrap;">pdb.set_trace()</code>，就可以设置一个断点：</div>
+<pre style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #444444; font-family: Consolas, monospace, serif; font-size: 12px; font-stretch: normal; line-height: 18px; margin-bottom: 15px; margin-top: 15px; overflow: auto; padding: 10px; tab-size: 4; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"><code class="python"><span class="comment" style="color: #999988; font-style: italic;"># err.py</span>
+<span class="keyword" style="color: #333333; font-weight: bold;">import</span> pdb
+
+s = <span class="string" style="color: #dd1144;">'0'</span>
+n = int(s)
+pdb.set_trace() <span class="comment" style="color: #999988; font-style: italic;"># 运行到这里会自动暂停</span>
+<span class="keyword" style="color: #333333; font-weight: bold;">print</span> <span class="number" style="color: #009999;">10</span> / n
+</code></pre>
+<div style="margin-bottom: 15px; margin-top: 15px; white-space: pre-wrap; word-wrap: break-word;">
+运行代码，程序会自动在<code style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #dd0055; font-family: Consolas, monospace, serif; font-size: 12px; padding: 0px 4px; white-space: nowrap;">pdb.set_trace()</code>暂停并进入pdb调试环境，可以用命令<code style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #dd0055; font-family: Consolas, monospace, serif; font-size: 12px; padding: 0px 4px; white-space: nowrap;">p</code>查看变量，或者用命令<code style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #dd0055; font-family: Consolas, monospace, serif; font-size: 12px; padding: 0px 4px; white-space: nowrap;">c</code>继续运行：</div>
+<pre style="background: rgb(250, 250, 250); border-radius: 3px; border: 1px solid rgb(221, 221, 221); color: #444444; font-family: Consolas, monospace, serif; font-size: 12px; font-stretch: normal; line-height: 18px; margin-bottom: 15px; margin-top: 15px; overflow: auto; padding: 10px; tab-size: 4; white-space: pre-wrap; word-break: break-all; word-wrap: break-word;"><code class="sql">$ python err.py 
+&gt; /Users/michael/Github/sicp/err.py(7)&lt;module&gt;()
+-&gt; print 10 / n
+(Pdb) p n
+0
+(Pdb) c
+Traceback (most recent <span class="operator"><span class="keyword" style="color: #333333; font-weight: bold;">call</span> <span class="keyword" style="color: #333333; font-weight: bold;">last</span>):
+  File <span class="string" style="color: #dd1144;">"err.py"</span>, line <span class="number" style="color: #009999;">7</span>, <span class="keyword" style="color: #333333; font-weight: bold;">in</span> &lt;<span class="keyword" style="color: #333333; font-weight: bold;">module</span>&gt;
+    print <span class="number" style="color: #009999;">10</span> / n
+ZeroDivisionError: <span class="keyword" style="color: #333333; font-weight: bold;">integer</span> division <span class="keyword" style="color: #333333; font-weight: bold;">or</span> modulo <span class="keyword" style="color: #333333; font-weight: bold;">by</span> zero
+</span></code></pre>
+<div style="margin-bottom: 15px; margin-top: 15px; white-space: pre-wrap; word-wrap: break-word;">
+这个方式比直接启动pdb单步调试效率要高很多，但也高不到哪去。</div>
+<h3 style="color: #444444; font-size: 18px; font-weight: normal; line-height: 24px; margin: 25px 0px 15px;">
+<a href="https://www.blogger.com/null" name="#IDE" style="background: transparent; color: #0593d3; cursor: pointer;"></a>IDE</h3>
+<div style="margin-bottom: 15px; margin-top: 15px; white-space: pre-wrap; word-wrap: break-word;">
+如果要比较爽地设置断点、单步执行，就需要一个支持调试功能的IDE。目前比较好的Python IDE有PyCharm：</div>
+<div style="margin-bottom: 15px; margin-top: 15px; white-space: pre-wrap; word-wrap: break-word;">
+<a href="http://www.jetbrains.com/pycharm/" style="background: transparent; color: #0593d3; cursor: pointer; text-decoration-line: none;" target="_blank">http://www.jetbrains.com/pycharm/</a></div>
+<div style="margin-bottom: 15px; margin-top: 15px; white-space: pre-wrap; word-wrap: break-word;">
+另外，<a href="http://eclipse.org/" style="background: transparent; color: #0593d3; cursor: pointer; text-decoration-line: none;" target="_blank">Eclipse</a>加上<a href="http://pydev.org/" style="background: transparent; color: #0593d3; cursor: pointer; text-decoration-line: none;" target="_blank">pydev</a>插件也可以调试Python程序。</div>
+<h3 style="color: #444444; font-size: 18px; font-weight: normal; line-height: 24px; margin: 25px 0px 15px;">
+<a href="https://www.blogger.com/null" name="#-E5-B0-8F-E7-BB-93" style="background: transparent; color: #0593d3; cursor: pointer;"></a>小结</h3>
+<div style="margin-bottom: 15px; margin-top: 15px; white-space: pre-wrap; word-wrap: break-word;">
+写程序最痛苦的事情莫过于调试，程序往往会以你意想不到的流程来运行，你期待执行的语句其实根本没有执行，这时候，就需要调试了。</div>
+<div style="margin-bottom: 15px; margin-top: 15px; white-space: pre-wrap; word-wrap: break-word;">
+虽然用IDE调试起来比较方便，但是最后你会发现，logging才是终极武器。</div>
+</div>
