@@ -1,76 +1,101 @@
-git lfs <command> [<args>]
-
-Git LFS is a system for managing and versioning large files in
-association with a Git repository.  Instead of storing the large files
-within the Git repository as blobs, Git LFS stores special "pointer
-files" in the repository, while storing the actual file contents on a
-Git LFS server.  The contents of the large file are downloaded
-automatically when needed, for example when a Git branch containing
-the large file is checked out.
-
-Git LFS works by using a "smudge" filter to look up the large file
-contents based on the pointer file, and a "clean" filter to create a
-new version of the pointer file when the large file's contents change.
-It also uses a pre-push hook to upload the large file contents to
-the Git LFS server whenever a commit containing a new large file
-version is about to be pushed to the corresponding Git server.
-
-Commands
---------
-
-Like Git, Git LFS commands are separated into high level ("porcelain")
-commands and low level ("plumbing") commands.
-
-High level commands
---------------------
-
-* git lfs env:
-    Display the Git LFS environment.
-* git lfs checkout:
-    Populate working copy with real content from Git LFS files.
-* git lfs clone:
-    Efficiently clone a Git LFS-enabled repository.
-* git lfs fetch:
-    Download git LFS files from a remote.
-* git lfs fsck:
-    Check GIT LFS files for consistency.
-* git lfs install:
-    Install Git LFS configuration.
-* git lfs lock:
-    Set a file as "locked" on the Git LFS server.
-* git lfs locks:
-    List currently "locked" files from the Git LFS server.
-* git lfs logs:
-    Show errors from the git-lfs command.
-* git lfs ls-files:
-    Show information about Git LFS files in the index and working tree.
-* git lfs migrate:
-    Migrate history to or from git-lfs
-* git lfs pull:
-    Fetch LFS changes from the remote & checkout any required working tree files.
-* git lfs push:
-    Push queued large files to the Git LFS endpoint.
-* git lfs status:
-    Show the status of Git LFS files in the working tree.
-* git lfs track:
-    View or add Git LFS paths to Git attributes.
-* git lfs unlock:
-    Remove "locked" setting for a file on the Git LFS server.
-* git lfs untrack:
-    Remove Git LFS paths from Git Attributes.
-* git lfs update:
-    Update Git hooks for the current Git repository.
-* git lfs version:
-    Report the version number.
-
-Low level commands
--------------------
-
-* git lfs clean:
-    Git clean filter that converts large files to pointers.
-* git lfs pointer:
-    Build and compare pointers.
-* git lfs pre-push:
-    Git pre-push hook implementation.
-* git lfs smudge:
-    Git smudge filter that converts pointer in blobs to the actual content.
+git lfs &lt;command&gt; [&lt;args&gt;]<br />
+<br />
+Git LFS is a system for managing and versioning large files in<br />
+association with a Git repository.&nbsp; Instead of storing the large files<br />
+within the Git repository as blobs, Git LFS stores special "pointer<br />
+files" in the repository, while storing the actual file contents on a<br />
+Git LFS server.&nbsp; The contents of the large file are downloaded<br />
+automatically when needed, for example when a Git branch containing<br />
+the large file is checked out.<br />
+<br />
+Git LFS works by using a "smudge" filter to look up the large file<br />
+contents based on the pointer file, and a "clean" filter to create a<br />
+new version of the pointer file when the large file's contents change.<br />
+It also uses a pre-push hook to upload the large file contents to<br />
+the Git LFS server whenever a commit containing a new large file<br />
+version is about to be pushed to the corresponding Git server.<br />
+<br />
+Commands<br />
+--------<br />
+<br />
+Like Git, Git LFS commands are separated into high level ("porcelain")<br />
+commands and low level ("plumbing") commands.<br />
+<br />
+High level commands<br />
+--------------------<br />
+<br />
+* git lfs env:<br />
+&nbsp; &nbsp; Display the Git LFS environment.<br />
+* git lfs checkout:<br />
+&nbsp; &nbsp; Populate working copy with real content from Git LFS files.<br />
+* git lfs clone:<br />
+&nbsp; &nbsp; Efficiently clone a Git LFS-enabled repository.<br />
+* git lfs fetch:<br />
+&nbsp; &nbsp; Download git LFS files from a remote.<br />
+* git lfs fsck:<br />
+&nbsp; &nbsp; Check GIT LFS files for consistency.<br />
+* git lfs install:<br />
+&nbsp; &nbsp; Install Git LFS configuration.<br />
+* git lfs lock:<br />
+&nbsp; &nbsp; Set a file as "locked" on the Git LFS server.<br />
+* git lfs locks:<br />
+&nbsp; &nbsp; List currently "locked" files from the Git LFS server.<br />
+* git lfs logs:<br />
+&nbsp; &nbsp; Show errors from the git-lfs command.<br />
+* git lfs ls-files:<br />
+&nbsp; &nbsp; Show information about Git LFS files in the index and working tree.<br />
+* git lfs migrate:<br />
+&nbsp; &nbsp; Migrate history to or from git-lfs<br />
+* git lfs pull:<br />
+&nbsp; &nbsp; Fetch LFS changes from the remote &amp; checkout any required working tree files.<br />
+* git lfs push:<br />
+&nbsp; &nbsp; Push queued large files to the Git LFS endpoint.<br />
+* git lfs status:<br />
+&nbsp; &nbsp; Show the status of Git LFS files in the working tree.<br />
+* git lfs track:<br />
+&nbsp; &nbsp; View or add Git LFS paths to Git attributes.<br />
+* git lfs unlock:<br />
+&nbsp; &nbsp; Remove "locked" setting for a file on the Git LFS server.<br />
+* git lfs untrack:<br />
+&nbsp; &nbsp; Remove Git LFS paths from Git Attributes.<br />
+* git lfs update:<br />
+&nbsp; &nbsp; Update Git hooks for the current Git repository.<br />
+* git lfs version:<br />
+&nbsp; &nbsp; Report the version number.<br />
+<br />
+Low level commands<br />
+-------------------<br />
+<br />
+* git lfs clean:<br />
+&nbsp; &nbsp; Git clean filter that converts large files to pointers.<br />
+* git lfs pointer:<br />
+&nbsp; &nbsp; Build and compare pointers.<br />
+* git lfs pre-push:<br />
+&nbsp; &nbsp; Git pre-push hook implementation.<br />
+* git lfs smudge:<br />
+&nbsp; &nbsp; Git smudge filter that converts pointer in blobs to the actual content.<br />
+<div>
+<br /></div>
+<div>
+<h2 class="section-heading" style="background-color: #efefe7; border-bottom: 1px solid rgb(215, 214, 206); box-sizing: border-box; color: #f64b18; font-family: adelle, Georgia, &quot;Times New Roman&quot;, serif; font-size: 1.375rem; line-height: 1.2; margin: 0px 0px 1rem; padding: 2rem 0px 1rem; text-rendering: optimizeLegibility;">
+Getting Started</h2>
+<ol class="install-steps" style="background-color: #efefe7; box-sizing: border-box; color: #6c5f54; font-family: adelle, Georgia, &quot;Times New Roman&quot;, serif; font-size: 16px; list-style-position: inside; margin: 1rem 0px; padding: 0px;">
+<li style="box-sizing: border-box; font-weight: 600;"><div style="box-sizing: border-box; font-weight: 400; margin-bottom: 1rem; max-width: 42rem;">
+<a class="js-os-data" data-ga-params="download,link" data-os-attr="href" data-os-linux="https://github.com/git-lfs/git-lfs/releases/download/v2.3.4/git-lfs-linux-amd64-2.3.4.tar.gz" data-os-mac="https://github.com/git-lfs/git-lfs/releases/download/v2.3.4/git-lfs-darwin-amd64-2.3.4.tar.gz" data-os-windows="https://github.com/git-lfs/git-lfs/releases/download/v2.3.4/git-lfs-windows-2.3.4.exe" href="https://github.com/git-lfs/git-lfs/releases/download/v2.3.4/git-lfs-windows-2.3.4.exe" style="box-sizing: border-box; color: #0088a8; text-decoration-line: none;">Download&nbsp;</a>and install the Git command line extension. You only have to set up Git LFS once.</div>
+<pre style="background: rgb(226, 225, 217); border-radius: 5px; border: 1px solid rgb(215, 214, 206); box-sizing: border-box; font-family: monospace, serif; font-size: 1em; font-weight: 400; padding: 1rem; white-space: pre-wrap;">git lfs install</pre>
+</li>
+<li style="box-sizing: border-box; font-weight: 600;"><div style="box-sizing: border-box; font-weight: 400; margin-bottom: 1rem; max-width: 42rem;">
+Select the file types you'd like Git LFS to manage (or directly edit your .gitattributes). You can configure additional file extensions at anytime.</div>
+<pre style="background: rgb(226, 225, 217); border-radius: 5px; border: 1px solid rgb(215, 214, 206); box-sizing: border-box; font-family: monospace, serif; font-size: 1em; font-weight: 400; padding: 1rem; white-space: pre-wrap;">git lfs track "*.psd"</pre>
+<div style="box-sizing: border-box; font-weight: 400; margin-bottom: 1rem; max-width: 42rem;">
+Make sure .gitattributes is tracked</div>
+<pre style="background: rgb(226, 225, 217); border-radius: 5px; border: 1px solid rgb(215, 214, 206); box-sizing: border-box; font-family: monospace, serif; font-size: 1em; font-weight: 400; padding: 1rem; white-space: pre-wrap;">git add .gitattributes</pre>
+</li>
+<li style="box-sizing: border-box; font-weight: 600;"><div style="box-sizing: border-box; font-weight: 400; margin-bottom: 1rem; max-width: 42rem;">
+There is no step three. Just commit and push to GitHub as you normally would.</div>
+<pre style="background: rgb(226, 225, 217); border-radius: 5px; border: 1px solid rgb(215, 214, 206); box-sizing: border-box; font-family: monospace, serif; font-size: 1em; font-weight: 400; padding: 1rem; white-space: pre-wrap;">git add file.psd
+git commit -m "Add design file"
+git push origin master</pre>
+</li>
+</ol>
+</div>
