@@ -1,5 +1,5 @@
 ## Welcome to GitHub Pages
-[GitHub Pages](https://littleguyy.github.io/web/)
+[GitHub Pages点击进入GitHub网站](https://littleguyy.github.io/web/)
 
 You can use the [editor on GitHub](https://github.com/littleguyy/web/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
 
