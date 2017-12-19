@@ -178,3 +178,35 @@ answered&nbsp;<span class="relativetime" style="border: 0px; font-family: inheri
 </div>
 </td></tr>
 </tbody></table>
+<div style="background-color: white; color: #555555; font-family: &quot;microsoft yahei&quot;; font-size: 15px; padding: 0px;">
+<span style="font-size: 24px;"><strong>一、问题描述</strong></span></div>
+<div style="background-color: white; color: #555555; font-family: &quot;microsoft yahei&quot;; font-size: 15px; padding: 0px;">
+<span style="font-size: 14px;">我在进行git push提交到远程仓库时，git会卡住等半天都没反应，像下图，唯有按Ctrl+C退出。</span></div>
+<div style="background-color: white; color: #555555; font-family: &quot;microsoft yahei&quot;; font-size: 15px; padding: 0px;">
+<img alt="" src="http://img.blog.csdn.net/20170109002842105?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2VraWFzb28=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" style="border: none; height: auto; max-height: 100%; max-width: 602px;" /></div>
+<div style="background-color: white; color: #555555; font-family: &quot;microsoft yahei&quot;; font-size: 15px; padding: 0px;">
+<span style="font-size: 24px;"><strong>二、运行环境</strong></span></div>
+<div style="background-color: white; color: #555555; font-family: &quot;microsoft yahei&quot;; font-size: 15px; padding: 0px;">
+<span style="font-size: 14px;">win7 + Git Bash</span></div>
+<div style="background-color: white; color: #555555; font-family: &quot;microsoft yahei&quot;; font-size: 15px; padding: 0px;">
+<span style="font-size: 24px;"><strong>三、问题解决</strong></span></div>
+<div style="background-color: white; color: #555555; font-family: &quot;microsoft yahei&quot;; font-size: 15px; padding: 0px;">
+<span style="font-size: 14px;">添加<strong>sendpack.sideband</strong>属性并置为false就解决了。</span></div>
+<div style="background-color: white; color: #555555; font-family: &quot;microsoft yahei&quot;; font-size: 15px; padding: 0px;">
+<span style="font-size: 14px;">全局的：git config --global sendpack.sideband false</span></div>
+<div style="background-color: white; color: #555555; font-family: &quot;microsoft yahei&quot;; font-size: 15px; padding: 0px;">
+<span style="font-size: 14px;">仓库的：git config --local sendpack.sideband false</span></div>
+<div style="background-color: white; color: #555555; font-family: &quot;microsoft yahei&quot;; font-size: 15px; padding: 0px;">
+<span style="font-size: 14px;"><img alt="" src="http://img.blog.csdn.net/20170109004459122?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2VraWFzb28=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" style="border: none; max-height: 100%; max-width: 100%;" /></span></div>
+<div style="background-color: white; color: #555555; font-family: &quot;microsoft yahei&quot;; font-size: 15px; padding: 0px;">
+<span style="font-size: 14px;"><br /></span></div>
+<div style="background-color: white; color: #555555; font-family: &quot;microsoft yahei&quot;; font-size: 15px; padding: 0px;">
+<span style="font-size: 14px;">通过git config --local -l 查看仓库级配置，可以看到有sendpack.sideband这一项并且是置为false的。</span></div>
+<div style="background-color: white; color: #555555; font-family: &quot;microsoft yahei&quot;; font-size: 15px; padding: 0px;">
+<span style="font-size: 14px;"><img alt="" src="http://img.blog.csdn.net/20170109004510925?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2VraWFzb28=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" style="border: none; max-height: 100%; max-width: 100%;" /></span></div>
+<div style="background-color: white; color: #555555; font-family: &quot;microsoft yahei&quot;; font-size: 15px; padding: 0px;">
+<span style="font-size: 14px;"><br /></span></div>
+<div style="background-color: white; color: #555555; font-family: &quot;microsoft yahei&quot;; font-size: 15px; padding: 0px;">
+<span style="font-size: 14px;">再次push提交到远程仓库已经ok了。</span></div>
+<div style="background-color: white; color: #555555; font-family: &quot;microsoft yahei&quot;; font-size: 15px; padding: 0px;">
+<span style="font-size: 14px;"><img alt="" src="http://img.blog.csdn.net/20170109004830845?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2VraWFzb28=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" style="border: none; max-height: 100%; max-width: 100%;" /></span></div>
