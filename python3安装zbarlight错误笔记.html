@@ -1,0 +1,103 @@
+Python3.x没有适用的二维码识别库zbar, 昨天折腾了半天zbar-ctypes, 磕磕绊绊的装好后, 测试无法解码, 也没有任何错误提示, 只能算失败了!
+另外一个zbarlight, 安装过程各种错误把握折磨的死去活来, 最后终于成功了, 错误记录在此, 供后来者参考.
+下载资源: zbar_win32执行文件, 需要把bin目录加入环境变量Path中.
+补充一句, python3.x的64位版就别折腾了, zbar只有32位的版本, 64位python最后会出现"ImportError: DLL load failed: %1 不是有效的 Win32 应用程序。"错误, 暂时无解. 可能的解决途径:ZBarWin64, 或者纯python实现解码二维码, 已经有人在做, 不过还没有发布.
+
+安装测试环境: 32位python3.5.2 + MinGW
+
+错误1:
+File "cygwinccompiler.py", line 86, in get_msvcr
+raise ValueError("Unknown MS Compiler version %s " % msc_ver)
+ValueError: Unknown MS Compiler version 1900
+解决办法: 参考
+在文件cygwinccompiler.py 84行后面插入:
+
+        elif msc_ver == '1700':
+            # Visual Studio 2012 / Visual C++ 11.0
+            return ['msvcr110']
+        elif msc_ver == '1800':
+            # Visual Studio 2013 / Visual C++ 12.0
+            return ['msvcr120']
+        elif msc_ver == '1900':
+            # Visual Studio 2015 / Visual C++ 14.0
+            # "msvcr140.dll no longer exists"
+            return ['vcruntime140']
+错误2:
+fatal error: zbar.h: No such file or directory
+解决办法: 参考zaccaro的回复
+先下载Zbar源文件, 提取里面的include文件夹放到zbarlight目录下的src文件夹内, 修改setup.py文件:
+
+ext_modules=[
+        Extension(
+            ...
+            include_dirs = ['src\include'],
+        ),
+    ],
+错误3:
+...io.h:301:1: error: unknown type name 'off64_t'
+解决办法: 参考huckebein的回复
+修改MinGW\include\sys\types.h文件中66~80行关于_off_t和_off64_t的定义:
+将两个"#ifndef STRICT_ANSI"改为"#ifdef STRICT_ANSI"
+这个方法比较粗暴, 编译完之后,最好还是再改回去.
+
+错误4:
+ld.exe: cannot find -lvcruntime140
+解决办法:
+在python目录中可以搜到vcruntime140.dll文件, MinGW32编译器不认, 需要转换一下.
+安装pexports, 在MinGW包管理器里面勾上, 应用即可.
+单独下载在这里
+在命令行下进入vcruntime140.dll文件所在目录, 执行下列命令:
+
+pexports.exe vcruntime140.dll >vcruntime140.def
+dlltool --dllname vcruntime140.dll --def vcruntime140.def --output-lib libvcruntime140.a
+将得到的libvcruntime140.a文件移动到MinGW\lib目录.
+
+错误5:
+ld.exe: cannot find -lzbar
+解决办法:
+方法1: 下载一个Zbar安装程序, 安装一遍之后可以找到libzbar-0.dll文件, 放到zbarlight目录下的src文件夹内.
+修改setup.py文件: libraries=['zbar'], ===> libraries=['src/libzbar-0'],
+方法2: 下载我分享的Zbar_win32文件, 将bin目录添加至环境变量Path
+修改setup.py文件: libraries=['zbar'], ===> libraries=['libzbar-0'],
+
+错误6:
+undefined reference to `zbar_image_scanner_create'
+...
+解决办法:
+跟错误4差不多, 但这个错误极少出现, 我反复试过多次, 没搞清出现的规律.
+该错误是由于libzbar-0.dll连接错误所致, 同前面相似的办法转换成libzbar-0.a文件即可.
+
+pexports.exe libzbar-0.dll >libzbar-0.def
+dlltool --dllname libzbar-0.dll --def libzbar-0.def --output-lib libzbar-0.a
+还要重新修改setup.py文件: libraries=['src/libzbar-0'], ===> libraries=['src/zbar-0'],
+
+错误7:
+undefined reference to `_imp__PyArg_ParseTuple'
+...
+解决办法:
+关于python的这种错误, 网上很容易搜到, 办法如下:
+在命令行下进入python目录, 执行下列命令:
+
+pexports.exe python35.dll > python35.def
+dlltool --dllname python35.dll --def python35.def --output-lib libpython35.a
+得到的libpython35.a文件移动到python目录下的libs目录中
+
+错误8:
+# 找不到PATH_TO\ZBar\lib\libzbar.dll.a路径
+    ext_modules=[
+        Extension(
+            name=str('zbarlight._zbarlight'),
+            include_dirs = ['src\include'],
+            sources=[str('src/zbarlight/_zbarlight.c')],
+            extra_compile_args=['-std=c99', '-IPATH_TO\ZBar\include', '-lPATH_TO\ZBar\lib'],
+            # extra_link_args=["PATH_TO\ZBar\lib\libzbar.dll.a"],
+            extra_link_args=["C:\Program Files (x86)\ZBar\lib\libzbar.dll.a"],
+            optional=os.environ.get('READTHEDOCS', False),  # Do not build on Read the Docs
+        ),
+    ],
+**That's All! **
+
+作者：粗识名姓
+链接：https://www.jianshu.com/p/f968527e1d5e
+來源：简书
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
