@@ -1,0 +1,107 @@
+<pre><div>
+现在有很多二维码的生成工具，在线的，或者安装的软件，都可以进行生成二维码。今天我用Python的<a href="https://link.jianshu.com/?t=https://github.com/lincolnloop/python-qrcode" rel="nofollow" target="_blank">qrcode</a>生成二维码。<br />
+
+<h3>
+安装</h3>
+用pip安装<br />
+
+<pre class="hljs undefined"><code>pip install qrcode
+</code></pre>
+使用源码安装<br />
+
+<pre class="hljs undefined"><code>git clone git@github.com:lincolnloop/python-qrcode.git
+cd python-qrcode
+python setup.py install
+</code></pre>
+查看安装信息<br />
+
+<pre class="hljs undefined"><code>pip show qrcode
+</code></pre>
+<h3>
+命令行</h3>
+qrcode提供了生成二维码的命令，这个很符合程序员装逼的风格。<br />
+
+<pre class="hljs undefined"><code>qr 'Some data' &gt; test.png
+</code></pre>
+我的简书上传的二维码就是用这个命令生成的<br />
+
+<div class="image-package">
+<div class="image-container" style="max-height: 297px; max-width: 336px;">
+<div class="image-container-fill" style="padding-bottom: 88.39%;">
+</div>
+<div class="image-view" data-height="297" data-width="336">
+<img class="" data-original-filesize="27865" data-original-format="image/jpeg" data-original-height="297" data-original-src="//upload-images.jianshu.io/upload_images/1648658-33949558f8629b1e.jpg" data-original-width="336" src="//upload-images.jianshu.io/upload_images/1648658-33949558f8629b1e.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/336" style="cursor: zoom-in;" /></div>
+</div>
+<div class="image-caption">
+我的二维码</div>
+</div>
+<h3>
+代码生成</h3>
+首先需要导入qrcode模块，然后调用make方法，会生成一个图片对象，调用图片对象
+
+的save方法就可以将生成的二维码保存下来了。<br />
+
+<pre class="hljs python"><code class="python"><span class="hljs-keyword">import</span> qrcode
+img = qrcode.make(<span class="hljs-string">"xinxingzhao"</span>)
+img.save(<span class="hljs-string">"xinxing.png"</span>)
+</code></pre>
+<h3>
+更多的设置</h3>
+上面两种方式都是按照qrcode默认的方式生成二维码，如果我们希望生成不同尺寸的二维码就需要使用<strong>QRCode</strong>类了。<br />
+
+<pre class="hljs undefined"><code>import qrcode
+qr = qrcode.QRCode(
+    version=1,
+    error_correction=qrcode.constants.ERROR_CORRECT_L,
+    box_size=10,
+    border=4,
+)
+qr.add_data('xinxingzhao')
+qr.make(fit=True)
+
+img = qr.make_image()
+img.save('xinxingzhao.png')
+</code></pre>
+<strong>version</strong> 表示二维码的版本号，二维码总共有1到40个版本，最小的版本号是1，对应的尺寸是21×21，每增加一个版本会增加4个尺寸。这里说的尺寸不是只生成图片的大小，而是值二维码的长宽被平均分为多少份。<br />
+
+<strong>error_correction</strong>指的是纠错容量，这就是为什么二维码上面放一个小图标也能扫出来，纠错容量有四个级别，分别是<br />
+
+<ul>
+<li>ERROR_CORRECT_L L级别，7%或更少的错误能修正</li>
+<li>ERROR_CORRECT_M M级别，15%或更少的错误能修正，也是qrcode的默认级别</li>
+<li>ERROR_CORRECT_Q Q级别，25%或更少的错误能修正</li>
+<li>ERROR_CORRECT_H H级别，30%或更少的错误能修正</li>
+</ul>
+<strong>box_size</strong> 指的是生成图片的像素<br />
+
+<strong>border</strong> 表示二维码的边框宽度，4是最小值<br />
+
+<h3>
+生成其他类型的二维码</h3>
+我们可以将二维码转化为SVG(矢量图)，命令行的方式：<br />
+
+<pre class="hljs undefined"><code>qr --factory=svg-path "xinxingzhao" &gt; xinxingzhao.svg
+qr --factory=svg "xinxingzhao" &gt; xinxingzhao.svg
+qr --factory=svg-fragment "xinxingzhao" &gt; xinxingzhao.svg
+</code></pre>
+使用python代码的方式：<br />
+
+<pre class="hljs python"><code class="python"><span class="hljs-keyword">import</span> qrcode
+<span class="hljs-keyword">import</span> qrcode.image.svg
+
+<span class="hljs-keyword">if</span> method == <span class="hljs-string">'basic'</span>:
+    <span class="hljs-comment"># Simple factory, just a set of rects.</span>
+    factory = qrcode.image.svg.SvgImage
+<span class="hljs-keyword">elif</span> method == <span class="hljs-string">'fragment'</span>:
+    <span class="hljs-comment"># Fragment factory (also just a set of rects)</span>
+    factory = qrcode.image.svg.SvgFragmentImage
+<span class="hljs-keyword">else</span>:
+    <span class="hljs-comment"># Combined path factory, fixes white space that may occur when zooming</span>
+    factory = qrcode.image.svg.SvgPathImage
+
+img = qrcode.make(<span class="hljs-string">'xinxingzhao'</span>, image_factory=factory)</code></pre>
+</div>
+作者：xinxingzhao
+链接：https://www.jianshu.com/p/b4b14e314b2a
+來源：简书
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</pre>
