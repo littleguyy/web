@@ -337,3 +337,93 @@ So as you can see, we have developed our first successful C Python extension usi
 Other ways to interface C code to Python is to use an alternative and faster build of python -&nbsp;<a class="reference external" href="http://cython.org/" style="box-sizing: border-box; color: #9b59b6; text-decoration-line: none;">Cython</a>. But Cython is a slightly different language than the main stream python we see. Hence that method is not covered here.</div>
 </div>
 http://book.pythontips.com/en/latest/index.html
+<h1 style="background-color: white; border: 0px; color: #1a1a1a; font-family: &quot;Lucida Grande&quot;, Arial, sans-serif; font-size: 32px; font-weight: normal; margin: 0px; padding: 0.3em 0px;">
+Extending and Embedding the Python Interpreter<a class="headerlink" href="https://docs.python.org/3/extending/index.html#extending-and-embedding-the-python-interpreter" style="color: #6363bb; font-size: 0.8em; padding: 0px 4px; text-decoration-line: none; visibility: hidden;" title="Permalink to this headline"></a></h1>
+<h1 style="background-color: #fcfcfc; box-sizing: border-box; color: #404040; font-family: &quot;Roboto Slab&quot;, ff-tisa-web-pro, Georgia, Arial, sans-serif; font-size: 28px; margin-top: 0px;">
+<div style="background-color: white; color: #222222; font-family: &quot;Lucida Grande&quot;, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 22.4px; text-align: justify;">
+This document describes how to write modules in C or C++ to extend the Python interpreter with new modules. Those modules can not only define new functions but also new object types and their methods. The document also describes how to embed the Python interpreter in another application, for use as an extension language. Finally, it shows how to compile and link extension modules so that they can be loaded dynamically (at run time) into the interpreter, if the underlying operating system supports this feature.</div>
+<div style="background-color: white; color: #222222; font-family: &quot;Lucida Grande&quot;, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 22.4px; text-align: justify;">
+This document assumes basic knowledge about Python. For an informal introduction to the language, see&nbsp;<a class="reference internal" href="https://docs.python.org/3/tutorial/index.html#tutorial-index" style="color: #6363bb; text-decoration-line: none;">The Python Tutorial</a>.&nbsp;<a class="reference internal" href="https://docs.python.org/3/reference/index.html#reference-index" style="color: #6363bb; text-decoration-line: none;">The Python Language Reference</a>&nbsp;gives a more formal definition of the language.&nbsp;<a class="reference internal" href="https://docs.python.org/3/library/index.html#library-index" style="color: #6363bb; text-decoration-line: none;">The Python Standard Library</a>&nbsp;documents the existing object types, functions and modules (both built-in and written in Python) that give the language its wide application range.</div>
+<div style="background-color: white; color: #222222; font-family: &quot;Lucida Grande&quot;, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 22.4px; text-align: justify;">
+For a detailed description of the whole Python/C API, see the separate&nbsp;<a class="reference internal" href="https://docs.python.org/3/c-api/index.html#c-api-index" style="color: #6363bb; text-decoration-line: none;">Python/C API Reference Manual</a>.</div>
+</h1>
+<h2 style="background-color: white; border: 0px; color: #1a1a1a; font-family: &quot;Lucida Grande&quot;, Arial, sans-serif; font-size: 25.6px; font-weight: normal; margin: 0px; padding: 0.3em 0px;">
+Recommended third party tools<a class="headerlink" href="https://docs.python.org/3/extending/index.html#recommended-third-party-tools" style="color: #6363bb; font-size: 0.8em; padding: 0px 4px; text-decoration-line: none; visibility: hidden;" title="Permalink to this headline"></a></h2>
+<h1 style="background-color: #fcfcfc; box-sizing: border-box; color: #404040; font-family: &quot;Roboto Slab&quot;, ff-tisa-web-pro, Georgia, Arial, sans-serif; font-size: 28px; margin-top: 0px;">
+<div class="section" id="recommended-third-party-tools" style="background-color: white; color: #222222; font-family: &quot;Lucida Grande&quot;, Arial, sans-serif; font-size: 16px; font-weight: 400;">
+<div style="line-height: 22.4px; text-align: justify;">
+This guide only covers the basic tools for creating extensions provided as part of this version of CPython. Third party tools like Cython,&nbsp;<code class="docutils literal" style="background-color: #ecf0f3; border-radius: 3px; font-family: monospace, sans-serif; font-size: 15.44px; padding: 0px 1px;"><span class="pre" style="hyphens: none;">cffi</span></code>, SWIG and Numba offer both simpler and more sophisticated approaches to creating C and C++ extensions for Python.</div>
+<div class="admonition seealso" style="background-color: #ffffcc; border-radius: 3px; border: 1px solid rgb(221, 221, 102); margin-bottom: 10px; margin-top: 10px; padding: 7px;">
+<div class="first admonition-title" style="display: inline; font-weight: bold; line-height: 22.4px; margin-bottom: 5px; margin-right: 10px; text-align: justify;">
+See also</div>
+<dl class="last docutils" style="margin-bottom: 0px;">
+<dt style="font-weight: bold;"><a class="reference external" href="https://packaging.python.org/en/latest/extensions/" style="color: #6363bb; text-decoration-line: none;">Python Packaging User Guide: Binary Extensions</a></dt>
+<dd style="line-height: 20.8px; margin-bottom: 10px; margin-left: 30px; margin-top: 3px; text-align: justify;">The Python Packaging User Guide not only covers several available tools that simplify the creation of binary extensions, but also discusses the various reasons why creating an extension module may be desirable in the first place.</dd></dl>
+</div>
+</div>
+</h1>
+<h2 style="background-color: white; border: 0px; color: #1a1a1a; font-family: &quot;Lucida Grande&quot;, Arial, sans-serif; font-size: 25.6px; font-weight: normal; margin: 0px; padding: 0.3em 0px;">
+Creating extensions without third party tools<a class="headerlink" href="https://docs.python.org/3/extending/index.html#creating-extensions-without-third-party-tools" style="color: #6363bb; font-size: 0.8em; padding: 0px 4px; text-decoration-line: none; visibility: hidden;" title="Permalink to this headline"></a></h2>
+<h1 style="background-color: #fcfcfc; box-sizing: border-box; color: #404040; font-family: &quot;Roboto Slab&quot;, ff-tisa-web-pro, Georgia, Arial, sans-serif; font-size: 28px; margin-top: 0px;">
+<div class="section" id="creating-extensions-without-third-party-tools" style="background-color: white; color: #222222; font-family: &quot;Lucida Grande&quot;, Arial, sans-serif; font-size: 16px; font-weight: 400;">
+<div style="line-height: 22.4px; text-align: justify;">
+This section of the guide covers creating C and C++ extensions without assistance from third party tools. It is intended primarily for creators of those tools, rather than being a recommended way to create your own C extensions.</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1" style="line-height: 20.8px; text-align: justify;"><a class="reference internal" href="https://docs.python.org/3/extending/extending.html" style="color: #6363bb; text-decoration-line: none;">1. Extending Python with C or C++</a><ul>
+<li class="toctree-l2" style="line-height: 20.8px; text-align: justify;"><a class="reference internal" href="https://docs.python.org/3/extending/extending.html#a-simple-example" style="color: #6363bb; text-decoration-line: none;">1.1. A Simple Example</a></li>
+<li class="toctree-l2" style="line-height: 20.8px; text-align: justify;"><a class="reference internal" href="https://docs.python.org/3/extending/extending.html#intermezzo-errors-and-exceptions" style="color: #6363bb; text-decoration-line: none;">1.2. Intermezzo: Errors and Exceptions</a></li>
+<li class="toctree-l2" style="line-height: 20.8px; text-align: justify;"><a class="reference internal" href="https://docs.python.org/3/extending/extending.html#back-to-the-example" style="color: #6363bb; text-decoration-line: none;">1.3. Back to the Example</a></li>
+<li class="toctree-l2" style="line-height: 20.8px; text-align: justify;"><a class="reference internal" href="https://docs.python.org/3/extending/extending.html#the-module-s-method-table-and-initialization-function" style="color: #6363bb; text-decoration-line: none;">1.4. The Module’s Method Table and Initialization Function</a></li>
+<li class="toctree-l2" style="line-height: 20.8px; text-align: justify;"><a class="reference internal" href="https://docs.python.org/3/extending/extending.html#compilation-and-linkage" style="color: #6363bb; text-decoration-line: none;">1.5. Compilation and Linkage</a></li>
+<li class="toctree-l2" style="line-height: 20.8px; text-align: justify;"><a class="reference internal" href="https://docs.python.org/3/extending/extending.html#calling-python-functions-from-c" style="color: #6363bb; text-decoration-line: none;">1.6. Calling Python Functions from C</a></li>
+<li class="toctree-l2" style="line-height: 20.8px; text-align: justify;"><a class="reference internal" href="https://docs.python.org/3/extending/extending.html#extracting-parameters-in-extension-functions" style="color: #6363bb; text-decoration-line: none;">1.7. Extracting Parameters in Extension Functions</a></li>
+<li class="toctree-l2" style="line-height: 20.8px; text-align: justify;"><a class="reference internal" href="https://docs.python.org/3/extending/extending.html#keyword-parameters-for-extension-functions" style="color: #6363bb; text-decoration-line: none;">1.8. Keyword Parameters for Extension Functions</a></li>
+<li class="toctree-l2" style="line-height: 20.8px; text-align: justify;"><a class="reference internal" href="https://docs.python.org/3/extending/extending.html#building-arbitrary-values" style="color: #6363bb; text-decoration-line: none;">1.9. Building Arbitrary Values</a></li>
+<li class="toctree-l2" style="line-height: 20.8px; text-align: justify;"><a class="reference internal" href="https://docs.python.org/3/extending/extending.html#reference-counts" style="color: #6363bb; text-decoration-line: none;">1.10. Reference Counts</a></li>
+<li class="toctree-l2" style="line-height: 20.8px; text-align: justify;"><a class="reference internal" href="https://docs.python.org/3/extending/extending.html#writing-extensions-in-c" style="color: #6363bb; text-decoration-line: none;">1.11. Writing Extensions in C++</a></li>
+<li class="toctree-l2" style="line-height: 20.8px; text-align: justify;"><a class="reference internal" href="https://docs.python.org/3/extending/extending.html#providing-a-c-api-for-an-extension-module" style="color: #6363bb; text-decoration-line: none;">1.12. Providing a C API for an Extension Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1" style="line-height: 20.8px; text-align: justify;"><a class="reference internal" href="https://docs.python.org/3/extending/newtypes.html" style="color: #6363bb; text-decoration-line: none;">2. Defining New Types</a><ul>
+<li class="toctree-l2" style="line-height: 20.8px; text-align: justify;"><a class="reference internal" href="https://docs.python.org/3/extending/newtypes.html#the-basics" style="color: #6363bb; text-decoration-line: none;">2.1. The Basics</a></li>
+<li class="toctree-l2" style="line-height: 20.8px; text-align: justify;"><a class="reference internal" href="https://docs.python.org/3/extending/newtypes.html#type-methods" style="color: #6363bb; text-decoration-line: none;">2.2. Type Methods</a></li>
+</ul>
+</li>
+<li class="toctree-l1" style="line-height: 20.8px; text-align: justify;"><a class="reference internal" href="https://docs.python.org/3/extending/building.html" style="color: #6363bb; text-decoration-line: none;">3. Building C and C++ Extensions</a><ul>
+<li class="toctree-l2" style="line-height: 20.8px; text-align: justify;"><a class="reference internal" href="https://docs.python.org/3/extending/building.html#building-c-and-c-extensions-with-distutils" style="color: #6363bb; text-decoration-line: none;">3.1. Building C and C++ Extensions with distutils</a></li>
+<li class="toctree-l2" style="line-height: 20.8px; text-align: justify;"><a class="reference internal" href="https://docs.python.org/3/extending/building.html#distributing-your-extension-modules" style="color: #6363bb; text-decoration-line: none;">3.2. Distributing your extension modules</a></li>
+</ul>
+</li>
+<li class="toctree-l1" style="line-height: 20.8px; text-align: justify;"><a class="reference internal" href="https://docs.python.org/3/extending/windows.html" style="color: #00b0e4;">4. Building C and C++ Extensions on Windows</a><ul>
+<li class="toctree-l2" style="line-height: 20.8px; text-align: justify;"><a class="reference internal" href="https://docs.python.org/3/extending/windows.html#a-cookbook-approach" style="color: #6363bb; text-decoration-line: none;">4.1. A Cookbook Approach</a></li>
+<li class="toctree-l2" style="line-height: 20.8px; text-align: justify;"><a class="reference internal" href="https://docs.python.org/3/extending/windows.html#differences-between-unix-and-windows" style="color: #6363bb; text-decoration-line: none;">4.2. Differences Between Unix and Windows</a></li>
+<li class="toctree-l2" style="line-height: 20.8px; text-align: justify;"><a class="reference internal" href="https://docs.python.org/3/extending/windows.html#using-dlls-in-practice" style="color: #6363bb; text-decoration-line: none;">4.3. Using DLLs in Practice</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</h1>
+<h2 style="background-color: white; border: 0px; color: #1a1a1a; font-family: &quot;Lucida Grande&quot;, Arial, sans-serif; font-size: 25.6px; font-weight: normal; margin: 0px; padding: 0.3em 0px;">
+Embedding the CPython runtime in a larger application<a class="headerlink" href="https://docs.python.org/3/extending/index.html#embedding-the-cpython-runtime-in-a-larger-application" style="color: #6363bb; font-size: 0.8em; padding: 0px 4px; text-decoration-line: none; visibility: hidden;" title="Permalink to this headline"></a></h2>
+<h1 style="background-color: #fcfcfc; box-sizing: border-box; color: #404040; font-family: &quot;Roboto Slab&quot;, ff-tisa-web-pro, Georgia, Arial, sans-serif; font-size: 28px; margin-top: 0px;">
+<div class="section" id="embedding-the-cpython-runtime-in-a-larger-application" style="background-color: white; color: #222222; font-family: &quot;Lucida Grande&quot;, Arial, sans-serif; font-size: 16px; font-weight: 400;">
+<div style="line-height: 22.4px; text-align: justify;">
+Sometimes, rather than creating an extension that runs inside the Python interpreter as the main application, it is desirable to instead embed the CPython runtime inside a larger application. This section covers some of the details involved in doing that successfully.</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1" style="line-height: 20.8px; text-align: justify;"><a class="reference internal" href="https://docs.python.org/3/extending/embedding.html" style="color: #6363bb; text-decoration-line: none;">1. Embedding Python in Another Application</a><ul>
+<li class="toctree-l2" style="line-height: 20.8px; text-align: justify;"><a class="reference internal" href="https://docs.python.org/3/extending/embedding.html#very-high-level-embedding" style="color: #6363bb; text-decoration-line: none;">1.1. Very High Level Embedding</a></li>
+<li class="toctree-l2" style="line-height: 20.8px; text-align: justify;"><a class="reference internal" href="https://docs.python.org/3/extending/embedding.html#beyond-very-high-level-embedding-an-overview" style="color: #6363bb; text-decoration-line: none;">1.2. Beyond Very High Level Embedding: An overview</a></li>
+<li class="toctree-l2" style="line-height: 20.8px; text-align: justify;"><a class="reference internal" href="https://docs.python.org/3/extending/embedding.html#pure-embedding" style="color: #6363bb; text-decoration-line: none;">1.3. Pure Embedding</a></li>
+<li class="toctree-l2" style="line-height: 20.8px; text-align: justify;"><a class="reference internal" href="https://docs.python.org/3/extending/embedding.html#extending-embedded-python" style="color: #6363bb; text-decoration-line: none;">1.4. Extending Embedded Python</a></li>
+<li class="toctree-l2" style="line-height: 20.8px; text-align: justify;"><a class="reference internal" href="https://docs.python.org/3/extending/embedding.html#embedding-python-in-c" style="color: #6363bb; text-decoration-line: none;">1.5. Embedding Python in C++</a></li>
+<li class="toctree-l2" style="line-height: 20.8px; text-align: justify;"><a class="reference internal" href="https://docs.python.org/3/extending/embedding.html#compiling-and-linking-under-unix-like-systems" style="color: #6363bb; text-decoration-line: none;">1.6. Compiling and Linking under Unix-like systems</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</h1>
+https://docs.python.org/3/extending/index.html
