@@ -1,0 +1,385 @@
+<div class="header" style="background-color: white; border: 0px; color: #111111; font-family: &quot;Segoe UI&quot;, Arial, sans-serif; font-size: 14px; margin: 0px; padding: 0px;">
+<div class="title" style="border: 0px; color: grey; margin: 0px; padding: 0px;">
+<h1 id="ctl00_ArticleTitle" style="color: #333333; font-size: 29px; font-weight: 200; line-height: normal; margin: 0px 0px 15px; padding: 0px;">
+MinHook - The Minimalistic x86/x64 API Hooking Library</h1>
+</div>
+<div style="border: 0px; height: 34px; margin: 0px; padding: 0px;">
+<div class="entry float-left" style="border: 0px; float: left; margin: 0px; padding: 0px;">
+<img class="float-left avatar" id="ctl00_avatar" src="https://www.codeproject.com/script/Membership/ProfileImages/%7B95b7d494-4a37-411d-a5e2-71d3a8f68e92%7D.jpg" style="border: 0px; float: left; margin: 0px 10px 0px 0px; max-height: 48px; max-width: 48px; overflow: auto; padding: 0px;" /><div class="float-left" style="border: 0px; float: left; margin: 0px; padding: 0px;">
+<div style="border: 0px; margin: 0px; padding: 0px;">
+<span class="author" style="border: 0px; font-weight: bold; margin: 0px; padding: 0px;"><a href="https://www.codeproject.com/script/Membership/View.aspx?mid=5207992" rel="author" style="border: 0px; color: grey; margin: 0px; padding: 0px; text-decoration-line: none;">Tsuda Kageyu</a></span>,&nbsp;<span class="date" style="border: 0px; margin: 0px; padding: 0px;" title="Date last updated">17 Mar 2015</span></div>
+<div class="float-left align-right" id="ctl00_RateArticleRow" style="border: 0px; float: left; margin: 5px 0px 0px; padding: 0px; text-align: right !important;">
+<div class="tooltip anchorLink column" id="ctl00_CurRat" name="CurRat_44326" style="border: 0px; cursor: pointer; display: inline; float: left; margin: 2px 20px 0px 0px; padding: 0px; position: relative;">
+<table cellpadding="0" cellspacing="0" class="small-text" id="ctl00_ArticleRating_RatingTable" style="background-color: transparent; border: 0px; font-size: 12px !important; margin: 0px; padding: 0px;"><tbody style="border: 0px; margin: 0px; padding: 0px;">
+<tr style="border: 0px; color: #111111; font-size: 14px; line-height: normal; margin: 0px; padding: 0px;"><td class="nowrap" style="border: 0px; font-size: 12px !important; line-height: normal; margin: 0px; padding: 0px; white-space: nowrap;"><span id="ctl00_ArticleRating_VI" style="border: 0px; margin: 0px; padding: 0px;"><div class="nowrap rating-stars-medium" style="border-radius: 5px; border: 0px; height: 18px; margin: 0px; padding: 2px; position: relative; width: 80px;">
+<div class="clipped align-left float-left" style="border: 0px; float: left; height: 16px; margin: 0px; overflow: hidden; padding: 0px; width: 79px;">
+<img src="https://codeproject.global.ssl.fastly.net/script/Ratings/Images/stars-fill-md.png" style="border: 0px; margin: 0px; max-width: 150px !important; overflow: auto; padding: 0px;" /></div>
+<div class="clipped" style="border: 0px; height: 16px; margin: 0px; overflow: hidden; padding: 0px; position: relative; width: 1px;">
+<img src="https://codeproject.global.ssl.fastly.net/script/Ratings/Images/stars-empty-md.png" style="border: 0px; margin: 0px; max-width: 150px !important; overflow: auto; padding: 0px; position: absolute; right: 0px; top: 0px;" /></div>
+</div>
+</span></td><td class="nowrap" id="ctl00_ArticleRating_VR" style="border: 0px; font-size: 12px !important; line-height: normal; margin: 0px; padding: 0px; white-space: nowrap;">&nbsp;&nbsp;<span id="ctl00_ArticleRating_VotesR" style="border: 0px; margin: 0px; padding: 0px;">&nbsp;4.96 (144 votes)</span></td></tr>
+</tbody></table>
+<span id="ctl00_ArticleRating_RatingText" style="border: 0px; margin: 0px; padding: 0px;"></span></div>
+<div class="column" style="border: 0px; display: inline; float: left; margin: 0px; padding: 0px;">
+<div class="small-text" id="ctl00_RateArticle_RateItemWrapper" name="RateItem_44326" style="border: 0px; font-size: 12px !important; margin: 0px; padding: 0px;">
+<table cellpadding="0" cellspacing="0" class="small-text" style="background-color: transparent; border: 0px; font-size: 12px !important; margin: 0px; padding: 0px; width: 100%px;"><tbody style="border: 0px; margin: 0px; padding: 0px;">
+<tr style="border: 0px; color: #111111; font-size: 14px; line-height: normal; margin: 0px; padding: 0px;"><td class="rating-result align-right" id="ctl00_RateArticle_VoteResultDiv" style="border: 0px; font-size: 12px !important; line-height: normal; margin: 0px; padding: 7px 0px 0px; text-align: right !important;"><span class="align-right" style="border: 0px; margin: 0px; padding: 0px;"></span></td><td align="right" class="voteTbl" style="border: 0px; font-size: 12px !important; line-height: normal; margin: 0px; padding: 0px; white-space: nowrap;"><table class="small-text" style="background-color: transparent; border: 0px; font-size: 12px !important; margin: 0px; padding: 0px;"><tbody style="border: 0px; margin: 0px; padding: 0px;">
+<tr style="border: 0px; color: #111111; font-size: 14px; line-height: normal; margin: 0px; padding: 0px;"><td align="right" id="ctl00_RateArticle_StartForm" nowrap="nowrap" style="border: 0px; font-size: 12px !important; line-height: normal; margin: 0px; padding: 0px;">Rate:</td><td class="nowrap rating-stars-voter-medium" id="ctl00_RateArticle_VoteFormDiv" style="border: 0px; font-size: 12px !important; line-height: normal; margin: 0px; padding: 0px; white-space: nowrap;"><span class="tooltip ajaxHist radio voting" id="ctl00_RateArticle_RB" style="border: 0px; margin: 0px; padding: 0px; position: relative;"><span id="ctl00_RateArticle_VoteRBL" style="border: 0px; margin: 0px; padding: 0px;"></span><div class="rating-star-block" style="border: 0px; margin: 0px 4px 0px 0px; padding: 2px;">
+<a class="star outline" href="https://www.codeproject.com/Articles/44326/MinHook-The-Minimalistic-x86-x64-API-Hooking-Libra#" rating="1" style="background: url(&quot;/script/Ratings/Images/star-empty-md.png&quot;) 0px 0px no-repeat scroll transparent; border: 0px; display: inline-block; height: 16px; margin: 0px; overflow: hidden; padding: 0px; text-decoration-line: none; text-indent: -999em; width: 16px;" title="vote 1">vote 1</a><a class="star outline" href="https://www.codeproject.com/Articles/44326/MinHook-The-Minimalistic-x86-x64-API-Hooking-Libra#" rating="2" style="background: url(&quot;/script/Ratings/Images/star-empty-md.png&quot;) 0px 0px no-repeat scroll transparent; border: 0px; display: inline-block; height: 16px; margin: 0px; overflow: hidden; padding: 0px; text-decoration-line: none; text-indent: -999em; width: 16px;" title="vote 2">vote 2</a><a class="star outline" href="https://www.codeproject.com/Articles/44326/MinHook-The-Minimalistic-x86-x64-API-Hooking-Libra#" rating="3" style="background: url(&quot;/script/Ratings/Images/star-empty-md.png&quot;) 0px 0px no-repeat scroll transparent; border: 0px; display: inline-block; height: 16px; margin: 0px; overflow: hidden; padding: 0px; text-decoration-line: none; text-indent: -999em; width: 16px;" title="vote 3">vote 3</a><a class="star outline" href="https://www.codeproject.com/Articles/44326/MinHook-The-Minimalistic-x86-x64-API-Hooking-Libra#" rating="4" style="background: url(&quot;/script/Ratings/Images/star-empty-md.png&quot;) 0px 0px no-repeat scroll transparent; border: 0px; display: inline-block; height: 16px; margin: 0px; overflow: hidden; padding: 0px; text-decoration-line: none; text-indent: -999em; width: 16px;" title="vote 4">vote 4</a><a class="star outline" href="https://www.codeproject.com/Articles/44326/MinHook-The-Minimalistic-x86-x64-API-Hooking-Libra#" rating="5" style="background: url(&quot;/script/Ratings/Images/star-empty-md.png&quot;) 0px 0px no-repeat scroll transparent; border: 0px; display: inline-block; height: 16px; margin: 0px; overflow: hidden; padding: 0px; text-decoration-line: none; text-indent: -999em; width: 16px;" title="vote 5">vote 5</a></div>
+</span></td><td style="border: 0px; font-size: 12px !important; line-height: normal; margin: 0px; padding: 0px 0px 0px 5px;"></td></tr>
+</tbody></table>
+</td></tr>
+</tbody></table>
+<div class="hover-container" style="border: 0px; margin: 0px; padding: 0px; position: relative;">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="float-left" style="border: 0px; float: left; margin: 25px 0px 0px 10px; padding: 0px;">
+</div>
+</div>
+</div>
+<div class="summary" id="ctl00_description" style="border: 0px; color: grey; margin: 0px; padding: 40px 0px 15px;">
+Provides the basic part of Microsoft Detours functionality for both x64/x86 environments.</div>
+<span class="date" content="https://www.codeproject.com/script/Articles/Images/article100x80.png" id="ctl00_thumbnailUrl" style="border: 0px; margin: 0px; padding: 0px;"></span></div>
+<div class="advise" id="ctl00_confirmError" style="background-color: #f2f2f2; border: 1px solid rgb(204, 204, 204); color: #333333; font-family: &quot;Segoe UI&quot;, Arial, sans-serif; font-size: 14px; margin: 20px 0px; padding: 15px;">
+<img height="48px" src="https://www.codeproject.com/images/warning48.png" style="border: 0px; float: left; margin: 0px 10px 0px 0px; overflow: auto; padding: 0px;" width="48px" /><b>Is your email address OK?</b>&nbsp;You are signed up for our newsletters but your email address is either unconfirmed, or has not been reconfirmed in a long time. Please&nbsp;<b>click&nbsp;<a href="https://www.codeproject.com/script/Membership/SendConfirmRequest.aspx?rp=%2fArticles%2f44326%2fMinHook-The-Minimalistic-x86-x64-API-Hooking-Libra" id="ctl00_RequestConfirmLink2" style="border: 0px; color: purple; margin: 0px; padding: 0px; text-decoration-line: none;">here</a>&nbsp;to have a confirmation email sent</b>&nbsp;so we can confirm your email address and start sending you newsletters again. Alternatively, you can&nbsp;<a href="https://www.codeproject.com/script/Membership/Subscribe.aspx?rp=%2fArticles%2f44326%2fMinHook-The-Minimalistic-x86-x64-API-Hooking-Libra" id="ctl00_SubscribeLink2" style="border: 0px; color: purple; font-weight: bold; margin: 0px; padding: 0px; text-decoration-line: none;">update your subscriptions</a>.</div>
+<div class="text" id="contentdiv" style="background-color: white; border: 0px; color: #111111; font-family: &quot;Segoe UI&quot;, Arial, sans-serif; font-size: 14px; margin: 0px; padding: 10px 0px 0px;">
+<ul class="download" style="border: 0px; margin: 25px 0px 10px; padding: 0px 0px 0px 40px;">
+<li style="background: url(&quot;/images/download24.png&quot;) left center no-repeat scroll transparent; border: 0px; font-weight: bold; line-height: normal; list-style-type: none; margin: 0px 0px 6px -40px; padding: 0px 0px 1px 30px; vertical-align: middle;"><a href="https://www.codeproject.com/KB/winsdk/LibMinHook/MinHook_133_src.zip" style="border: 0px; color: purple; margin: 0px; padding: 0px; text-decoration-line: none;">Download Source (v1.3.3) - 49.1 KB</a></li>
+<li style="background: url(&quot;/images/download24.png&quot;) left center no-repeat scroll transparent; border: 0px; font-weight: bold; line-height: normal; list-style-type: none; margin: 0px 0px 6px -40px; padding: 0px 0px 1px 30px; vertical-align: middle;"><a href="https://www.codeproject.com/KB/winsdk/LibMinHook/MinHook_133_bin.zip" style="border: 0px; color: purple; margin: 0px; padding: 0px; text-decoration-line: none;">Download Precompiled DLLs (v1.3.3) - 19.0 KB</a></li>
+<li style="background: url(&quot;/images/download24.png&quot;) left center no-repeat scroll transparent; border: 0px; font-weight: bold; line-height: normal; list-style-type: none; margin: 0px 0px 6px -40px; padding: 0px 0px 1px 30px; vertical-align: middle;"><a href="https://www.codeproject.com/KB/winsdk/LibMinHook/MinHook_133_lib.zip" style="border: 0px; color: purple; margin: 0px; padding: 0px; text-decoration-line: none;">Download Precompiled Static Libraries (v1.3.3) - 1.8 MB</a></li>
+<li style="background: url(&quot;/images/download24.png&quot;) left center no-repeat scroll transparent; border: 0px; font-weight: bold; line-height: normal; list-style-type: none; margin: 0px 0px 6px -40px; padding: 0px 0px 1px 30px; vertical-align: middle;"><a href="https://www.codeproject.com/KB/winsdk/LibMinHook/MinHook_132_sample.zip" style="border: 0px; color: purple; margin: 0px; padding: 0px; text-decoration-line: none;">Download Samples (v1.3.2) - 120.6 KB</a></li>
+</ul>
+<ul class="download" style="border: 0px; margin: 25px 0px 10px; padding: 0px 0px 0px 40px;">
+<li style="background: url(&quot;/images/download24.png&quot;) left center no-repeat scroll transparent; border: 0px; font-weight: bold; line-height: normal; list-style-type: none; margin: 0px 0px 6px -40px; padding: 0px 0px 1px 30px; vertical-align: middle;"><a href="https://github.com/TsudaKageyu/minhook/releases" style="border: 0px; color: purple; margin: 0px; padding: 0px; text-decoration-line: none;">Release archive of my GitHub repository</a></li>
+<li style="background: url(&quot;/images/download24.png&quot;) left center no-repeat scroll transparent; border: 0px; font-weight: bold; line-height: normal; list-style-type: none; margin: 0px 0px 6px -40px; padding: 0px 0px 1px 30px; vertical-align: middle;"><a href="https://www.nuget.org/packages/minhook" style="border: 0px; color: purple; margin: 0px; padding: 0px; text-decoration-line: none;">NuGet Package for the latest version (NuGet Gallery)</a></li>
+</ul>
+<div style="line-height: normal;">
+<br /></div>
+<div style="background-color: #ffffdd; border: 0px; font-size: 13.3px; margin: 0pt 49px; padding: 6px;">
+<center>
+<strong style="border: 0px; margin: 0px; padding: 0px;">v1.3.3 was released on 8 Jan 2017!</strong></center>
+We added support for Visual Studio 2017. Feel free to visit my GitHub repository. Your reviews and bug reports are welcome.</div>
+<h2 style="color: #ff9900; font-size: 29px; font-weight: 200; line-height: normal; margin: 20px 0px 11px; padding: 0px 0px 10px;">
+Background</h2>
+<div style="line-height: normal;">
+As you who are interested in Windows API hooking know, there is an excellent library for it by Microsoft Research named&nbsp;<a href="http://research.microsoft.com/en-us/projects/detours/" style="border: 0px; color: purple; margin: 0px; padding: 0px; text-decoration-line: none;" title="Detours"><strong style="border: 0px; margin: 0px; padding: 0px;">Detours</strong></a>. It's really useful, but its free edition (called 'Express') doesn't support the x64 environment. Though its commercial edition (called 'Professional') supports x64, it's too expensive for me to afford. It costs around US$10,000!</div>
+<div style="line-height: normal;">
+So I decided to write my own library or "poorman's Detours" from scratch. But I haven't designed my library as the perfect clone of Detours. It has just the API hooking functionality because that's all I want.</div>
+<div style="line-height: normal;">
+As of April 2016, this&nbsp;library is used in some projects:&nbsp;<strong style="border: 0px; margin: 0px; padding: 0px;"><a href="http://rammichael.com/7-taskbar-tweaker" style="border: 0px; color: purple; margin: 0px; padding: 0px; text-decoration-line: none;">7+ Taskbar Tweaker</a></strong>,&nbsp;<strong style="border: 0px; margin: 0px; padding: 0px;"><a href="http://better-explorer.com/" style="border: 0px; color: purple; margin: 0px; padding: 0px; text-decoration-line: none;">Better Explorer</a></strong>,&nbsp;<strong style="border: 0px; margin: 0px; padding: 0px;"><a href="http://conemu.github.io/" style="border: 0px; color: purple; margin: 0px; padding: 0px; text-decoration-line: none;">ConEmu</a></strong>,&nbsp;<strong style="border: 0px; margin: 0px; padding: 0px;"><a href="http://sourceforge.net/projects/dxwnd/" style="border: 0px; color: purple; margin: 0px; padding: 0px; text-decoration-line: none;">DxWnd</a></strong>,&nbsp;<strong style="border: 0px; margin: 0px; padding: 0px;"><a href="https://wiki.mumble.info/wiki/Main_Page" style="border: 0px; color: purple; margin: 0px; padding: 0px; text-decoration-line: none;">Mumble</a></strong>,&nbsp;<strong style="border: 0px; margin: 0px; padding: 0px;"><a href="http://www.nvaccess.org/" style="border: 0px; color: purple; margin: 0px; padding: 0px; text-decoration-line: none;">NonVisual Desktop Access</a></strong>,&nbsp;<strong style="border: 0px; margin: 0px; padding: 0px;"><a href="https://obsproject.com/" style="border: 0px; color: purple; margin: 0px; padding: 0px; text-decoration-line: none;">Open Broadcaster Software</a></strong>,&nbsp;<strong style="border: 0px; margin: 0px; padding: 0px;"><a href="http://qttabbar.sourceforge.net/" style="border: 0px; color: purple; margin: 0px; padding: 0px; text-decoration-line: none;">QTTabBar</a></strong>,&nbsp;<strong style="border: 0px; margin: 0px; padding: 0px;"><a href="https://code.google.com/p/x360ce/" style="border: 0px; color: purple; margin: 0px; padding: 0px; text-decoration-line: none;">x360ce</a></strong>, mods for some&nbsp;games&nbsp;and more. I am happy finding that this project is helpful to people.</div>
+<h2 style="color: #ff9900; font-size: 29px; font-weight: 200; line-height: normal; margin: 20px 0px 11px; padding: 0px 0px 10px;">
+Using the Library</h2>
+<div style="line-height: normal;">
+Look at the sample code below. That's all. It hooks the&nbsp;<code style="border: 0px; color: #990000; font-family: Consolas, &quot;Courier New&quot;, Courier, mono; font-size: 11pt; font-stretch: normal; font-variant-east-asian: normal; font-variant-numeric: normal; line-height: normal; margin: 0px; padding: 0px;">MessageBoxW()</code>&nbsp;function and modifies its text. This example is included in the source and binary archive. Please try it in both x64 and x86 modes.</div>
+<div style="line-height: normal;">
+The&nbsp;<strong style="border: 0px; margin: 0px; padding: 0px;"><a href="https://www.nuget.org/packages/minhook" style="border: 0px; color: purple; margin: 0px; padding: 0px; text-decoration-line: none;">NuGet Package</a></strong>&nbsp;is now available for those who are familiar with NuGet.</div>
+<div class="pre-action-link" id="premain237745" style="border: 0px; color: #999999; font-size: 11px; margin: 0px; padding: 0px; position: relative; text-align: right; width: 700px;">
+<span id="prehide237745" style="border: 0px; cursor: pointer; margin: 0px; padding: 0px; transition: color 0.1s linear;">Hide</span>&nbsp;&nbsp;&nbsp;<span id="preShrink237745" style="border: 0px; cursor: pointer; margin: 0px; padding: 0px; transition: color 0.1s linear;">Shrink</span>&nbsp;<img id="preimg237745" src="https://www.codeproject.com/images/arrow-up-16.png" style="border: 0px; height: 16px; margin: 0px; max-width: 100%; opacity: 0.5; overflow: auto; padding: 0px; transition: opacity 0.1s linear 0ms; vertical-align: text-top; width: 16px;" />&nbsp;&nbsp;&nbsp;<span id="copycode237745" style="border: 0px; cursor: pointer; margin: 0px; padding: 0px; transition: color 0.1s linear;">Copy Code</span></div>
+<pre class="notranslate" id="pre237745" lang="C" processed="true" style="background-color: #fbedbb; border: 1px solid rgb(251, 237, 187); color: black; font-family: Consolas, &quot;Courier New&quot;, Courier, mono; font-size: 9pt; font-stretch: normal; font-variant-east-asian: normal; font-variant-numeric: normal; line-height: normal; overflow: auto; padding: 6px; tab-size: 4; white-space: pre-wrap; word-break: break-word; word-wrap: break-word;"><span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">#include</span><span class="code-preprocessor" style="border: 0px; color: grey; margin: 0px; padding: 0px;"> <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">&lt;</span><span class="code-leadattribute" style="border: 0px; color: maroon; margin: 0px; padding: 0px;">Windows.h</span><span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">&gt;</span>
+</span><span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">#include</span><span class="code-preprocessor" style="border: 0px; color: grey; margin: 0px; padding: 0px;"> <span class="code-string" style="border: 0px; color: purple; margin: 0px; padding: 0px;">"</span><span class="code-string" style="border: 0px; color: purple; margin: 0px; padding: 0px;">MinHook.h"</span>
+</span>
+<span class="code-preprocessor" style="border: 0px; color: grey; margin: 0px; padding: 0px;">#if defined _M_X64
+</span><span class="code-preprocessor" style="border: 0px; color: grey; margin: 0px; padding: 0px;">#pragma comment(lib, "libMinHook.x64.lib")
+</span><span class="code-preprocessor" style="border: 0px; color: grey; margin: 0px; padding: 0px;">#elif defined _M_IX86
+</span><span class="code-preprocessor" style="border: 0px; color: grey; margin: 0px; padding: 0px;">#pragma comment(lib, "libMinHook.x86.lib")
+</span><span class="code-preprocessor" style="border: 0px; color: grey; margin: 0px; padding: 0px;">#endif
+</span>
+<span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">typedef</span> <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">int</span> (WINAPI *MESSAGEBOXW)(HWND, LPCWSTR, LPCWSTR, UINT);
+
+<span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">//</span><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;"> Pointer for calling original MessageBoxW.</span>
+MESSAGEBOXW fpMessageBoxW = NULL;
+
+<span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">//</span><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;"> Detour function which overrides MessageBoxW.</span>
+<span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">int</span> WINAPI DetourMessageBoxW(HWND hWnd, LPCWSTR lpText, LPCWSTR lpCaption, UINT uType)
+{
+    <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">return</span> fpMessageBoxW(hWnd, L<span class="code-string" style="border: 0px; color: purple; margin: 0px; padding: 0px;">"</span><span class="code-string" style="border: 0px; color: purple; margin: 0px; padding: 0px;">Hooked!"</span>, lpCaption, uType);
+}
+
+<span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">int</span> main()
+{
+    <span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">//</span><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;"> Initialize MinHook.</span>
+    <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">if</span> (MH_Initialize() != MH_OK)
+    {
+        <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">return</span> <span class="code-digit" style="border: 0px; color: navy; margin: 0px; padding: 0px;">1</span>;
+    }
+
+    <span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">//</span><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;"> Create a hook for MessageBoxW, in disabled state.</span>
+    <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">if</span> (MH_CreateHook(&amp;MessageBoxW, &amp;DetourMessageBoxW, 
+        reinterpret_cast&lt;LPVOID*&gt;(&amp;fpMessageBoxW)) != MH_OK)
+    {
+        <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">return</span> <span class="code-digit" style="border: 0px; color: navy; margin: 0px; padding: 0px;">1</span>;
+    }
+
+&nbsp; &nbsp; <span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">//</span><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;"> or you can use the new helper function like this.</span>
+&nbsp; &nbsp; <span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">//</span><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">if (MH_CreateHookApiEx(</span>
+&nbsp;   <span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">//</span><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">    L"user32", "MessageBoxW", &amp;DetourMessageBoxW, &amp;fpMessageBoxW) != MH_OK)</span>
+&nbsp; &nbsp; <span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">//</span><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">{</span>
+&nbsp; &nbsp; <span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">//</span><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">&nbsp; &nbsp; return 1;</span>
+&nbsp; &nbsp; <span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">//</span><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">}</span>
+
+    <span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">//</span><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;"> Enable the hook for MessageBoxW.</span>
+    <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">if</span> (MH_EnableHook(&amp;MessageBoxW) != MH_OK)
+    {
+        <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">return</span> <span class="code-digit" style="border: 0px; color: navy; margin: 0px; padding: 0px;">1</span>;
+    }
+
+    <span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">//</span><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;"> Expected to tell "Hooked!".</span>
+    MessageBoxW(NULL, L<span class="code-string" style="border: 0px; color: purple; margin: 0px; padding: 0px;">"</span><span class="code-string" style="border: 0px; color: purple; margin: 0px; padding: 0px;">Not hooked..."</span>, L<span class="code-string" style="border: 0px; color: purple; margin: 0px; padding: 0px;">"</span><span class="code-string" style="border: 0px; color: purple; margin: 0px; padding: 0px;">MinHook Sample"</span>, MB_OK);
+
+    <span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">//</span><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;"> Disable the hook for MessageBoxW.</span>
+    <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">if</span> (MH_DisableHook(&amp;MessageBoxW) != MH_OK)
+    {
+        <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">return</span> <span class="code-digit" style="border: 0px; color: navy; margin: 0px; padding: 0px;">1</span>;
+    }
+
+    <span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">//</span><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;"> Expected to tell "Not hooked...".</span>
+    MessageBoxW(NULL, L<span class="code-string" style="border: 0px; color: purple; margin: 0px; padding: 0px;">"</span><span class="code-string" style="border: 0px; color: purple; margin: 0px; padding: 0px;">Not hooked..."</span>, L<span class="code-string" style="border: 0px; color: purple; margin: 0px; padding: 0px;">"</span><span class="code-string" style="border: 0px; color: purple; margin: 0px; padding: 0px;">MinHook Sample"</span>, MB_OK);
+
+    <span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">//</span><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;"> Uninitialize MinHook.</span>
+    <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">if</span> (MH_Uninitialize() != MH_OK)
+    {
+        <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">return</span> <span class="code-digit" style="border: 0px; color: navy; margin: 0px; padding: 0px;">1</span>;
+    }
+
+    <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">return</span> <span class="code-digit" style="border: 0px; color: navy; margin: 0px; padding: 0px;">0</span>;
+}</pre>
+<div style="line-height: normal;">
+If you are a C++ user, you can write a small wrapper for&nbsp;<code style="border: 0px; color: #990000; font-family: Consolas, &quot;Courier New&quot;, Courier, mono; font-size: 11pt; font-stretch: normal; font-variant-east-asian: normal; font-variant-numeric: normal; line-height: normal; margin: 0px; padding: 0px;">MH_CreateHook()</code>&nbsp;and&nbsp;<span style="border: 0px; color: #990000; font-family: Consolas, &quot;Courier New&quot;, Courier, mono; font-size: 14.6667px; margin: 0px; padding: 0px;">MH_CreateHookApi()</span>. It allows you to remove annoying&nbsp;<code style="border: 0px; color: #990000; font-family: Consolas, &quot;Courier New&quot;, Courier, mono; font-size: 11pt; font-stretch: normal; font-variant-east-asian: normal; font-variant-numeric: normal; line-height: normal; margin: 0px; padding: 0px;">reinterpret_cast</code>s like this:</div>
+<div class="pre-action-link" id="premain918176" style="border: 0px; color: #999999; font-size: 11px; margin: 0px; padding: 0px; position: relative; text-align: right; width: 700px;">
+<span id="prehide918176" style="border: 0px; cursor: pointer; margin: 0px; padding: 0px; transition: color 0.1s linear;">Hide</span>&nbsp;&nbsp;&nbsp;<span id="copycode918176" style="border: 0px; cursor: pointer; margin: 0px; padding: 0px; transition: color 0.1s linear;">Copy Code</span></div>
+<pre class="notranslate" id="pre918176" lang="C++" style="background-color: #fbedbb; border: 1px solid rgb(251, 237, 187); color: black; font-family: Consolas, &quot;Courier New&quot;, Courier, mono; font-size: 9pt; font-stretch: normal; font-variant-east-asian: normal; font-variant-numeric: normal; line-height: normal; overflow: auto; padding: 6px; tab-size: 4; white-space: pre-wrap; word-break: break-word; word-wrap: break-word;"><span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">template</span> &lt;typename T&gt;
+<span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">inline</span> MH_STATUS MH_CreateHookEx(LPVOID pTarget, LPVOID pDetour, T** ppOriginal)
+{
+    <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">return</span> MH_CreateHook(pTarget, pDetour, reinterpret_cast&lt;LPVOID*&gt;(ppOriginal));
+}
+
+<span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">template</span> &lt;typename T&gt;
+<span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">inline</span> MH_STATUS MH_CreateHookApiEx(
+&nbsp;   LPCWSTR pszModule, LPCSTR pszProcName, LPVOID pDetour, T** ppOriginal)
+{
+&nbsp; &nbsp; <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">return</span> MH_CreateHookApi(
+&nbsp;       pszModule, pszProcName, pDetour, reinterpret_cast&lt;LPVOID*&gt;(ppOriginal));
+}
+
+...
+
+<span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">//</span><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;"> Create a hook for MessageBoxW, in disabled state.</span>
+<span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">if</span> (MH_CreateHookApiEx(L<span class="code-string" style="border: 0px; color: purple; margin: 0px; padding: 0px;">"</span><span class="code-string" style="border: 0px; color: purple; margin: 0px; padding: 0px;">user32"</span>, <span class="code-string" style="border: 0px; color: purple; margin: 0px; padding: 0px;">"</span><span class="code-string" style="border: 0px; color: purple; margin: 0px; padding: 0px;">MessageBoxW"</span>, &amp;DetourMessageBoxW, &amp;fpMessageBoxW) != MH_OK)
+{
+&nbsp; &nbsp; <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">return</span> <span class="code-digit" style="border: 0px; color: navy; margin: 0px; padding: 0px;">1</span>;
+}</pre>
+<h2 style="color: #ff9900; font-size: 29px; font-weight: 200; line-height: normal; margin: 20px 0px 11px; padding: 0px 0px 10px;">
+How It Works</h2>
+<div style="line-height: normal;">
+The basic concept of this software is the same as&nbsp;<strong style="border: 0px; margin: 0px; padding: 0px;">Microsoft Detours</strong>&nbsp;and&nbsp;<a amid="1531736&quot;" href="https://www.codeproject.com/KB/winsdk/MemberArticles.aspx" style="border: 0px; color: purple; margin: 0px; padding: 0px; text-decoration-line: none;">Daniel Pistelli</a>'s&nbsp;<a href="http://www.codeproject.com/KB/system/mini_hook_engine.aspx" style="border: 0px; color: purple; margin: 0px; padding: 0px; text-decoration-line: none;"><strong style="border: 0px; margin: 0px; padding: 0px;">Hook-Engine</strong></a>. It replaces the prologue of the target function with x86's&nbsp;<code lang="asm" style="border: 0px; color: #990000; font-family: Consolas, &quot;Courier New&quot;, Courier, mono; font-size: 11pt; font-stretch: normal; font-variant-east-asian: normal; font-variant-numeric: normal; line-height: normal; margin: 0px; padding: 0px;">JMP</code>&nbsp;(unconditional jump) instruction to the detour function. It's safe, stable, and a proven method.</div>
+<h4 style="font-size: 16px; line-height: normal;">
+Overwriting the Target Function</h4>
+<div style="line-height: normal;">
+In the x64/x86 instruction set, there are some forms of the&nbsp;<code style="border: 0px; color: #990000; font-family: Consolas, &quot;Courier New&quot;, Courier, mono; font-size: 11pt; font-stretch: normal; font-variant-east-asian: normal; font-variant-numeric: normal; line-height: normal; margin: 0px; padding: 0px;">JMP</code>&nbsp;instruction. I decided to always use a 32 bit relative&nbsp;<code style="border: 0px; color: #990000; font-family: Consolas, &quot;Courier New&quot;, Courier, mono; font-size: 11pt; font-stretch: normal; font-variant-east-asian: normal; font-variant-numeric: normal; line-height: normal; margin: 0px; padding: 0px;">JMP</code>&nbsp;of 5 bytes. It's the shortest form that can be used in reality. In this case, shorter is better.</div>
+<div style="line-height: normal;">
+In x86 mode, 32bit relative&nbsp;<code style="border: 0px; color: #990000; font-family: Consolas, &quot;Courier New&quot;, Courier, mono; font-size: 11pt; font-stretch: normal; font-variant-east-asian: normal; font-variant-numeric: normal; line-height: normal; margin: 0px; padding: 0px;">JMP</code>&nbsp;covers the whole address space. Because the overflowed bits are just ignored in the relative address arithmetic, in x86 mode, the function addresses don't matter.</div>
+<div class="pre-action-link" id="premain403833" style="border: 0px; color: #999999; font-size: 11px; margin: 0px; padding: 0px; position: relative; text-align: right; width: 700px;">
+<span id="prehide403833" style="border: 0px; cursor: pointer; margin: 0px; padding: 0px; transition: color 0.1s linear;">Hide</span>&nbsp;&nbsp;&nbsp;<span id="copycode403833" style="border: 0px; cursor: pointer; margin: 0px; padding: 0px; transition: color 0.1s linear;">Copy Code</span></div>
+<pre class="notranslate" id="pre403833" lang="asm" style="background-color: #fbedbb; border: 1px solid rgb(251, 237, 187); color: black; font-family: Consolas, &quot;Courier New&quot;, Courier, mono; font-size: 9pt; font-stretch: normal; font-variant-east-asian: normal; font-variant-numeric: normal; line-height: normal; overflow: auto; padding: 6px; tab-size: 4; white-space: pre-wrap; word-break: break-word; word-wrap: break-word;"><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">;</span><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;"> x86 mode (assumed that the target function is at 0x40000000)</span>
+
+<span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">;</span><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;"> 32bit relative JMPs of 5 bytes cover whole address space</span>
+0x40000000:  E9 FBFFFFBF      <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">JMP</span> 0x0        (EIP+0xBFFFFFFB)
+0x40000000:  E9 FAFFFFBF      <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">JMP</span> 0xFFFFFFFF (EIP+0xBFFFFFFA)
+
+<span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">;</span><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;"> Shorter forms are useless in this case</span>
+<span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">;</span><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;"> 8bit JMPs of 2 bytes cover -126 ~ +129 bytes</span>
+0x40000000:  EB <span class="code-digit" style="border: 0px; color: navy; margin: 0px; padding: 0px;">80</span>            <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">JMP</span> 0x3FFFFF82 (EIP-0x80)
+0x40000000:  EB 7F            <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">JMP</span> 0x40000081 (EIP+0x7F)
+<span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">;</span><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;"> 16bit JMPs of 4 bytes cover -32764 ~ +32771 bytes</span>
+0x40000000:  66E9 <span class="code-digit" style="border: 0px; color: navy; margin: 0px; padding: 0px;">0080</span>        <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">JMP</span> 0x3FFF8004 (EIP-0x8000)
+0x40000000:  66E9 FF7F        <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">JMP</span> 0x40008003 (EIP+0x7FFF)</pre>
+<div style="line-height: normal;">
+But, in x64 mode, it's a problem. It only covers the very narrow range in comparison with the whole address space. So I introduced a new function called 'Relay Function' which just has a 64 bit jump to the detour function and is placed near the target function. Fortunately, the&nbsp;<code style="border: 0px; color: #990000; font-family: Consolas, &quot;Courier New&quot;, Courier, mono; font-size: 11pt; font-stretch: normal; font-variant-east-asian: normal; font-variant-numeric: normal; line-height: normal; margin: 0px; padding: 0px;">VirtualAlloc()</code>&nbsp;API function can accept the address to allocate, and it's an easy job to look for unallocated regions near the target function.</div>
+<div class="pre-action-link" id="premain978458" style="border: 0px; color: #999999; font-size: 11px; margin: 0px; padding: 0px; position: relative; text-align: right; width: 700px;">
+<span id="prehide978458" style="border: 0px; cursor: pointer; margin: 0px; padding: 0px; transition: color 0.1s linear;">Hide</span>&nbsp;&nbsp;&nbsp;<span id="copycode978458" style="border: 0px; cursor: pointer; margin: 0px; padding: 0px; transition: color 0.1s linear;">Copy Code</span></div>
+<pre class="notranslate" id="pre978458" lang="asm" style="background-color: #fbedbb; border: 1px solid rgb(251, 237, 187); color: black; font-family: Consolas, &quot;Courier New&quot;, Courier, mono; font-size: 9pt; font-stretch: normal; font-variant-east-asian: normal; font-variant-numeric: normal; line-height: normal; overflow: auto; padding: 6px; tab-size: 4; white-space: pre-wrap; word-break: break-word; word-wrap: break-word;"><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">;</span><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;"> x64 mode (assumed that the target function is at 0x140000000)</span>
+
+<span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">;</span><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;"> 32bit relative JMPs of 5 bytes cover about -2GB ~ +2GB</span>
+0x140000000: E9 <span class="code-digit" style="border: 0px; color: navy; margin: 0px; padding: 0px;">00000080</span>      <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">JMP</span> 0xC0000005  (RIP-0x80000000)
+0x140000000: E9 FFFFFF7F      <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">JMP</span> 0x1C0000004 (RIP+0x7FFFFFFF)
+
+<span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">;</span><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;"> Target function (Jump to the Relay Function)</span>
+0x140000000: E9 FBFF0700      <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">JMP</span> 0x140080000 (RIP+0x7FFFB)
+
+<span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">;</span><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;"> Relay function (Jump to the Detour Function)</span>
+0x140080000: FF25 FAFF0000    <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">JMP</span> [0x140090000 (RIP+0xFFFA)]
+0x140090000: xxxxxxxxxxxxxxxx <span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">;</span><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;"> 64bit address of the Detour Function</span></pre>
+<h4 style="font-size: 16px; line-height: normal;">
+Building the Trampoline Function</h4>
+<div style="line-height: normal;">
+The target function is overwritten to detour. And, how do we call the original target function? In many cases, we have to call the original function from within the detour function. MinHook has a function called "Trampoline Function" for the purpose of calling the original function (and Daniel Pistelli call it "Bridge Function"). This is a clone of the prologue of the original function with the trailing unconditional jump for resuming into the original function. The real world examples are here. They are what&nbsp;<code style="border: 0px; color: #990000; font-family: Consolas, &quot;Courier New&quot;, Courier, mono; font-size: 11pt; font-stretch: normal; font-variant-east-asian: normal; font-variant-numeric: normal; line-height: normal; margin: 0px; padding: 0px;">MinHook</code>&nbsp;actually creates.</div>
+<div style="line-height: normal;">
+We should disassemble the original function to know the instructions boundary and the instructions to be copied. I adopted&nbsp;<a href="http://patkov-site.narod.ru/" style="border: 0px; color: purple; margin: 0px; padding: 0px; text-decoration-line: none;"><strong style="border: 0px; margin: 0px; padding: 0px;">Vyacheslav Patkov</strong></a>'s&nbsp;<strong style="border: 0px; margin: 0px; padding: 0px;">Hacker Disassembler Engine</strong>&nbsp;(HDE) as a disassembler. It's small, light-weight and suitable for my purpose. I disassembled thousands of API functions on Windows XP, Vista, and 7 for examination purposes, and built the trampoline function for them.</div>
+<div class="pre-action-link" id="premain510038" style="border: 0px; color: #999999; font-size: 11px; margin: 0px; padding: 0px; position: relative; text-align: right; width: 700px;">
+<span id="prehide510038" style="border: 0px; cursor: pointer; margin: 0px; padding: 0px; transition: color 0.1s linear;">Hide</span>&nbsp;&nbsp;&nbsp;<span id="copycode510038" style="border: 0px; cursor: pointer; margin: 0px; padding: 0px; transition: color 0.1s linear;">Copy Code</span></div>
+<pre class="notranslate" id="pre510038" lang="asm" style="background-color: #fbedbb; border: 1px solid rgb(251, 237, 187); color: black; font-family: Consolas, &quot;Courier New&quot;, Courier, mono; font-size: 9pt; font-stretch: normal; font-variant-east-asian: normal; font-variant-numeric: normal; line-height: normal; overflow: auto; padding: 6px; tab-size: 4; white-space: pre-wrap; word-break: break-word; word-wrap: break-word;"><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">;</span><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;"> Original "USER32.dll!MessageBoxW" in x64 mode</span>
+0x770E11E4: 4883EC <span class="code-digit" style="border: 0px; color: navy; margin: 0px; padding: 0px;">38</span>         <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">SUB</span> <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">RSP</span>, 0x38
+0x770E11E8: 4533DB            <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">XOR</span> R11D, R11D
+<span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">;</span><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;"> Trampoline</span>
+0x77064BD0: 4883EC <span class="code-digit" style="border: 0px; color: navy; margin: 0px; padding: 0px;">38</span>         <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">SUB</span> <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">RSP</span>, 0x38
+0x77064BD4: 4533DB            <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">XOR</span> R11D, R11D
+0x77064BD7: FF25 5BE8FEFF     <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">JMP</span> <span class="code-sdkkeyword" style="border: 0px; color: #339999; margin: 0px; padding: 0px;">QWORD</span> NEAR [0x77053438 (RIP-0x117A5)]
+<span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">;</span><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;"> Address Table</span>
+0x77053438: EB110E7700000000  <span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">;</span><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;"> Address of the Target Function +7 (for resuming)</span>
+
+<span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">;</span><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;"> Original "USER32.dll!MessageBoxW" in x86 mode</span>
+0x7687FECF: 8BFF              <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">MOV</span> <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">EDI</span>, <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">EDI</span>
+0x7687FED1: <span class="code-digit" style="border: 0px; color: navy; margin: 0px; padding: 0px;">55</span>                <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">PUSH</span> <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">EBP</span>
+0x7687FED2: 8BEC              <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">MOV</span> <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">EBP</span>, <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">ESP</span>
+<span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">;</span><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;"> Trampoline</span>
+0x0014BE10: 8BFF              <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">MOV</span> <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">EDI</span>, <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">EDI</span>
+0x0014BE12: <span class="code-digit" style="border: 0px; color: navy; margin: 0px; padding: 0px;">55</span>                <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">PUSH</span> <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">EBP</span>
+0x0014BE13: 8BEC              <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">MOV</span> <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">EBP</span>, <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">ESP</span>
+0x0014BE15: E9 BA407376       <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">JMP</span> 0x7687FED4</pre>
+<div style="line-height: normal;">
+What if the original function contains the branch instructions? Of course, they should be modified to point to the same address as the original.</div>
+<div class="pre-action-link" id="premain113804" style="border: 0px; color: #999999; font-size: 11px; margin: 0px; padding: 0px; position: relative; text-align: right; width: 700px;">
+<span id="prehide113804" style="border: 0px; cursor: pointer; margin: 0px; padding: 0px; transition: color 0.1s linear;">Hide</span>&nbsp;&nbsp;&nbsp;<span id="preShrink113804" style="border: 0px; cursor: pointer; margin: 0px; padding: 0px; transition: color 0.1s linear;">Shrink</span>&nbsp;<img id="preimg113804" src="https://www.codeproject.com/images/arrow-up-16.png" style="border: 0px; height: 16px; margin: 0px; max-width: 100%; opacity: 0.5; overflow: auto; padding: 0px; transition: opacity 0.1s linear 0ms; vertical-align: text-top; width: 16px;" />&nbsp;&nbsp;&nbsp;<span id="copycode113804" style="border: 0px; cursor: pointer; margin: 0px; padding: 0px; transition: color 0.1s linear;">Copy Code</span></div>
+<pre class="notranslate" id="pre113804" lang="asm" processed="true" style="background-color: #fbedbb; border: 1px solid rgb(251, 237, 187); color: black; font-family: Consolas, &quot;Courier New&quot;, Courier, mono; font-size: 9pt; font-stretch: normal; font-variant-east-asian: normal; font-variant-numeric: normal; line-height: normal; overflow: auto; padding: 6px; tab-size: 4; white-space: pre-wrap; word-break: break-word; word-wrap: break-word;"><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">;</span><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;"> Original "kernel32.dll!IsProcessorFeaturePresent" in x64 mode</span>
+0x771BD130: 83F9 <span class="code-digit" style="border: 0px; color: navy; margin: 0px; padding: 0px;">03</span>           <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">CMP</span> <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">ECX</span>, 0x3
+0x771BD133: <span class="code-digit" style="border: 0px; color: navy; margin: 0px; padding: 0px;">7414</span>              <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">JE</span> 0x771BD149
+<span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">;</span><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;"> Trampoline</span>
+<span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">;</span><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;"> (Became a little complex, because 64 bit version of JE doesn't exist)</span>
+0x77069860: 83F9 <span class="code-digit" style="border: 0px; color: navy; margin: 0px; padding: 0px;">03</span>           <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">CMP</span> <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">ECX</span>, 0x3
+0x77069863: <span class="code-digit" style="border: 0px; color: navy; margin: 0px; padding: 0px;">74</span> <span class="code-digit" style="border: 0px; color: navy; margin: 0px; padding: 0px;">02</span>             <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">JE</span> 0x77069867
+0x77069865: EB <span class="code-digit" style="border: 0px; color: navy; margin: 0px; padding: 0px;">06</span>             <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">JMP</span> 0x7706986D
+0x77069867: FF25 1BE1FEFF     <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">JMP</span> <span class="code-sdkkeyword" style="border: 0px; color: #339999; margin: 0px; padding: 0px;">QWORD</span> NEAR [0x77057988 (RIP-0x11EE5)]
+0x7706986D: FF25 1DE1FEFF     <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">JMP</span> <span class="code-sdkkeyword" style="border: 0px; color: #339999; margin: 0px; padding: 0px;">QWORD</span> NEAR [0x77057990 (RIP-0x11EE3)]
+<span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">;</span><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;"> Address Table</span>
+0x77057988: 49D11B7700000000  <span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">;</span><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;"> Where the original JE points.</span>
+0x77057990: 35D11B7700000000  <span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">;</span><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;"> Address of the Target Function +5 (for resuming)</span>
+
+<span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">;</span><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;"> Original "gdi32.DLL!GdiFlush" in x86 mode</span>
+0x76479FF4: E8 DDFFFFFF       <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">CALL</span> 0x76479FD6
+<span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">;</span><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;"> Trampoline</span>
+0x00147D64: E8 6D223376       <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">CALL</span> 0x76479FD6
+0x00147D69: E9 8B223376       <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">JMP</span> 0x76479FF9
+
+<span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">;</span><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;"> Original "kernel32.dll!CloseProfileUserMapping" in x86 mode</span>
+0x763B7918: 33C0              <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">XOR</span> <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">EAX</span>, <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">EAX</span>
+0x763B791A: <span class="code-digit" style="border: 0px; color: navy; margin: 0px; padding: 0px;">40</span>                <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">INC</span> <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">EAX</span>
+0x763B791B: C3                <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">RET</span>
+0x763B791C: <span class="code-digit" style="border: 0px; color: navy; margin: 0px; padding: 0px;">90</span>                <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">NOP</span>
+<span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">;</span><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;"> Trampoline (Additional jump is not required, because this is a perfect function)</span>
+0x0014585C: 33C0              <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">XOR</span> <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">EAX</span>, <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">EAX</span>
+0x0014585E: <span class="code-digit" style="border: 0px; color: navy; margin: 0px; padding: 0px;">40</span>                <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">INC</span> <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">EAX</span>
+0x0014585F: C3                <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">RET</span> </pre>
+<div style="line-height: normal;">
+The RIP relative addressing mode is also a problem in the x64 mode. Their relative addresses should be modified to point to the same addresses.</div>
+<div class="pre-action-link" id="premain643233" style="border: 0px; color: #999999; font-size: 11px; margin: 0px; padding: 0px; position: relative; text-align: right; width: 700px;">
+<span id="prehide643233" style="border: 0px; cursor: pointer; margin: 0px; padding: 0px; transition: color 0.1s linear;">Hide</span>&nbsp;&nbsp;&nbsp;<span id="copycode643233" style="border: 0px; cursor: pointer; margin: 0px; padding: 0px; transition: color 0.1s linear;">Copy Code</span></div>
+<pre class="notranslate" id="pre643233" lang="asm" style="background-color: #fbedbb; border: 1px solid rgb(251, 237, 187); color: black; font-family: Consolas, &quot;Courier New&quot;, Courier, mono; font-size: 9pt; font-stretch: normal; font-variant-east-asian: normal; font-variant-numeric: normal; line-height: normal; overflow: auto; padding: 6px; tab-size: 4; white-space: pre-wrap; word-break: break-word; word-wrap: break-word;"><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">;</span><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;"> Original "kernel32.dll!GetConsoleInputWaitHandle" in x64 mode</span>
+0x771B27F0: 488B05 11790C00   <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">MOV</span> <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">RAX</span>, [0x7727A108 (RIP+0xC7911)]
+<span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">;</span><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;"> Trampoline</span>
+0x77067EB8: 488B05 <span class="code-digit" style="border: 0px; color: navy; margin: 0px; padding: 0px;">49222100</span>   <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">MOV</span> <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">RAX</span>, [0x7727A108 (RIP+0x212249)]
+0x77067EBF: FF25 4BE3FEFF     <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">JMP</span> <span class="code-sdkkeyword" style="border: 0px; color: #339999; margin: 0px; padding: 0px;">QWORD</span> NEAR [0x77056210 (RIP-0x11CB5)]
+<span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">;</span><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;"> Address Table</span>
+0x77056210: F7271B7700000000  <span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">;</span><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;"> Address of the Target Function +7 (for resuming)</span>
+
+<span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">;</span><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;"> Original "user32.dll!TileWindows" in x64 mode</span>
+0x770E023C: 4883EC <span class="code-digit" style="border: 0px; color: navy; margin: 0px; padding: 0px;">38</span>         <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">SUB</span> <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">RSP</span>, 0x38
+0x770E0240: 488D05 71FCFFFF   <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">LEA</span> <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">RAX</span>, [0x770DFEB8 (RIP-0x38F)]
+<span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">;</span><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;"> Trampoline</span>
+0x77064A80: 4883EC <span class="code-digit" style="border: 0px; color: navy; margin: 0px; padding: 0px;">38</span>         <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">SUB</span> <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">RSP</span>, 0x38
+0x77064A84: 488D05 2DB40700   <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">LEA</span> <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">RAX</span>, [0x770DFEB8 (RIP+0x7B42D)]
+0x77064A8B: FF25 CFE8FEFF     <span class="code-keyword" style="border: 0px; color: blue; margin: 0px; padding: 0px;">JMP</span> <span class="code-sdkkeyword" style="border: 0px; color: #339999; margin: 0px; padding: 0px;">QWORD</span> NEAR [0x77053360 (RIP-0x11731)]
+<span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">;</span><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;"> Address Table</span>
+0x77053360: 47020E7700000000 <span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;">;</span><span class="code-comment" style="border: 0px; color: green; font-style: italic; margin: 0px; padding: 0px;"> Address of the Target Function +11 (for resuming)</span></pre>
+<h2 style="color: #ff9900; font-size: 29px; font-weight: 200; line-height: normal; margin: 20px 0px 11px; padding: 0px 0px 10px;">
+Conclusion</h2>
+<div style="line-height: normal;">
+Though this library is small and simple, I think it's practical enough. Please enjoy!</div>
+<h2 style="color: #ff9900; font-size: 29px; font-weight: 200; line-height: normal; margin: 20px 0px 11px; padding: 0px 0px 10px;">
+History</h2>
+<ul style="border: 0px; margin: 10px 0px; padding: 0px 0px 0px 40px;">
+<li style="border: 0px; line-height: normal; margin: 0px; padding: 0px;">8 Jan, 2017: Updated the source to v1.3.3.<ol style="border: 0px; margin: 10px 0px; padding: 0px 0px 0px 40px;">
+<li style="border: 0px; line-height: normal; margin: 0px; padding: 0px;">Added a helper function MH_CreateHookApiEx. (Thanks to asm256)</li>
+<li style="border: 0px; line-height: normal; margin: 0px; padding: 0px;">Support Visual Studio 2017 RC.</li>
+</ol>
+</li>
+<li style="border: 0px; line-height: normal; margin: 0px; padding: 0px;">1 Nov, 2015: Updated the source to v1.3.2.<ol style="border: 0px; margin: 10px 0px; padding: 0px 0px 0px 40px;">
+<li style="border: 0px; line-height: normal; margin: 0px; padding: 0px;">Support Visual Studio 2015.</li>
+<li style="border: 0px; line-height: normal; margin: 0px; padding: 0px;">Support MinGW.</li>
+</ol>
+</li>
+<li style="border: 0px; line-height: normal; margin: 0px; padding: 0px;">18 May, 2015: Updated the source to v1.3.2-beta2.<ol style="border: 0px; margin: 10px 0px; padding: 0px 0px 0px 40px;">
+<li style="border: 0px; line-height: normal; margin: 0px; padding: 0px;">Fixed some subtle bugs. (Thanks to RaMMicHaeL)</li>
+<li style="border: 0px; line-height: normal; margin: 0px; padding: 0px;">Added a helper function MH_StatusToString. (Thanks to Jan Klass)</li>
+</ol>
+</li>
+<li style="border: 0px; line-height: normal; margin: 0px; padding: 0px;">12 May, 2015: Updated the source to v1.3.2-beta.<ol style="border: 0px; margin: 10px 0px; padding: 0px 0px 0px 40px;">
+<li style="border: 0px; line-height: normal; margin: 0px; padding: 0px;">Fixed a possible thread deadlock in x64 mode. (Thanks to Aleh Kazakevich)</li>
+<li style="border: 0px; line-height: normal; margin: 0px; padding: 0px;">Reduced the footprint a little more.</li>
+<li style="border: 0px; line-height: normal; margin: 0px; padding: 0px;">Support Visual Studio 2015 RC. (Experimental)</li>
+</ol>
+</li>
+<li style="border: 0px; line-height: normal; margin: 0px; padding: 0px;">19 Mar, 2015: Updated the source to v1.3.1.<ol style="border: 0px; margin: 10px 0px; padding: 0px 0px 0px 40px;">
+<li style="border: 0px; line-height: normal; margin: 0px; padding: 0px;">No major changes from v1.3.1-beta.</li>
+</ol>
+</li>
+<li style="border: 0px; line-height: normal; margin: 0px; padding: 0px;">11 Mar, 2015: Updated the source to v1.3.1-beta.<ol style="border: 0px; margin: 10px 0px; padding: 0px 0px 0px 40px;">
+<li style="border: 0px; line-height: normal; margin: 0px; padding: 0px;">Added the MH_CreateHookApi function.</li>
+<li style="border: 0px; line-height: normal; margin: 0px; padding: 0px;">Fixed a false memory leak reported by some tools.</li>
+<li style="border: 0px; line-height: normal; margin: 0px; padding: 0px;">Fixed a degradated compatibility issue.</li>
+</ol>
+</li>
+<li style="border: 0px; line-height: normal; margin: 0px; padding: 0px;">13 Sep, 2014: Updated the source to v1.3.<ol style="border: 0px; margin: 10px 0px; padding: 0px 0px 0px 40px;">
+<li style="border: 0px; line-height: normal; margin: 0px; padding: 0px;">No major changes from v1.3-beta3.</li>
+</ol>
+</li>
+<li style="border: 0px; line-height: normal; margin: 0px; padding: 0px;">31 Jul, 2014: Updated the source to v1.3-beta3.<ol style="border: 0px; margin: 10px 0px; padding: 0px 0px 0px 40px;">
+<li style="border: 0px; line-height: normal; margin: 0px; padding: 0px;">Fixed some small bugs.</li>
+<li style="border: 0px; line-height: normal; margin: 0px; padding: 0px;">Improved the memory management.</li>
+</ol>
+</li>
+<li style="border: 0px; line-height: normal; margin: 0px; padding: 0px;">21 Jul, 2014: Updated the source to v1.3-beta2.<ol style="border: 0px; margin: 10px 0px; padding: 0px 0px 0px 40px;">
+<li style="border: 0px; line-height: normal; margin: 0px; padding: 0px;">Changed the parameters to Windows-friendly types. (void* to LPVOID)</li>
+<li style="border: 0px; line-height: normal; margin: 0px; padding: 0px;">Fixed some small bugs.</li>
+<li style="border: 0px; line-height: normal; margin: 0px; padding: 0px;">Reorganized the source files.</li>
+<li style="border: 0px; line-height: normal; margin: 0px; padding: 0px;">Reduced the footprint a little more.</li>
+</ol>
+</li>
+<li style="border: 0px; line-height: normal; margin: 0px; padding: 0px;">17 Jul, 2014: Updated the source to v1.3-beta.<ol style="border: 0px; margin: 10px 0px; padding: 0px 0px 0px 40px;">
+<li style="border: 0px; line-height: normal; margin: 0px; padding: 0px;">Rewrote in plain C to reduce the footprint and memory usage. (suggested by Andrey Unis)</li>
+<li style="border: 0px; line-height: normal; margin: 0px; padding: 0px;">Simplified the overall code base to make it more readable and maintainable.</li>
+<li style="border: 0px; line-height: normal; margin: 0px; padding: 0px;">Changed the license from 3-clause to 2-clause BSD License.</li>
+</ol>
+</li>
+<li style="border: 0px; line-height: normal; margin: 0px; padding: 0px;">21 Jun, 2014: Updated the source to v1.2.2.<ol style="border: 0px; margin: 10px 0px; padding: 0px 0px 0px 40px;">
+<li style="border: 0px; line-height: normal; margin: 0px; padding: 0px;">Fixed compilation with Express Editions.</li>
+<li style="border: 0px; line-height: normal; margin: 0px; padding: 0px;">Reduced the size of static libraries.</li>
+</ol>
+</li>
+<li style="border: 0px; line-height: normal; margin: 0px; padding: 0px;">18 Jun, 2014: Updated the source to v1.2.1c.<ol style="border: 0px; margin: 10px 0px; padding: 0px 0px 0px 40px;">
+<li style="border: 0px; line-height: normal; margin: 0px; padding: 0px;">Translated the Japanese comments into English.</li>
+<li style="border: 0px; line-height: normal; margin: 0px; padding: 0px;">Converted the source files from Shift-JIS to UTF-8.</li>
+</ol>
+</li>
+<li style="border: 0px; line-height: normal; margin: 0px; padding: 0px;">16 Jun, 2014: Updated the source and binary files to v1.2.1.<ol style="border: 0px; margin: 10px 0px; padding: 0px 0px 0px 40px;">
+<li style="border: 0px; line-height: normal; margin: 0px; padding: 0px;">A lot of bug fixes and improvements. (thanks to&nbsp;<a href="https://github.com/jarredholman" style="border: 0px; color: purple; margin: 0px; padding: 0px; text-decoration-line: none;">jarredholman</a>&nbsp;and&nbsp;<a href="https://github.com/RaMMicHaeL" style="border: 0px; color: purple; margin: 0px; padding: 0px; text-decoration-line: none;">RaMMicHaeL</a>)</li>
+<li style="border: 0px; line-height: normal; margin: 0px; padding: 0px;">Fixed compilation with VC2008, 2010, 2012 and 2013.</li>
+</ol>
+</li>
+<li style="border: 0px; line-height: normal; margin: 0px; padding: 0px;">26 Nov, 2009: Updated the source, binary files and sample code<ol style="border: 0px; margin: 10px 0px; padding: 0px 0px 0px 40px;">
+<li style="border: 0px; line-height: normal; margin: 0px; padding: 0px;">Fixed a serious bug (thanks to xliqz)</li>
+<li style="border: 0px; line-height: normal; margin: 0px; padding: 0px;">Changed the interface with the bug fix</li>
+</ol>
+</li>
+<li style="border: 0px; line-height: normal; margin: 0px; padding: 0px;">23 Nov, 2009: Updated the source and binary files<ol style="border: 0px; margin: 10px 0px; padding: 0px 0px 0px 40px;">
+<li style="border: 0px; line-height: normal; margin: 0px; padding: 0px;">Fixed small bugs (internal type mismatch etc)</li>
+<li style="border: 0px; line-height: normal; margin: 0px; padding: 0px;">Separated the&nbsp;<em style="border: 0px; margin: 0px; padding: 0px;">.LIB</em>s from the&nbsp;<em style="border: 0px; margin: 0px; padding: 0px;">.DLL</em>s</li>
+<li style="border: 0px; line-height: normal; margin: 0px; padding: 0px;">Added the sample executables</li>
+</ol>
+</li>
+<li style="border: 0px; line-height: normal; margin: 0px; padding: 0px;">22 Nov, 2009: Initial post</li>
+</ul>
+</div>
+https://www.codeproject.com/Articles/44326/MinHook-The-Minimalistic-x86-x64-API-Hooking-Libra
