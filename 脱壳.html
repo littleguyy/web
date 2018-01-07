@@ -1,0 +1,138 @@
+<pre><div>
+壳是一段执行于原始代码前的代码。原始程序的代码在家可的过程中可能被压缩、加密等，当加壳后的文件执行时，壳这段代码先于原始程序运行，把压缩、加密等后的代码还原成原始程序代码，然后再把执行权交给原始代码。
+
+加壳的全称应该是可执行程序资源压缩，压缩后的程序可以直接运行。加壳的另一种常用方法是在二进制的程序中植入一段代码，在运行的时候优先取得程序的控制权，做一些额外的工作，大多数病毒就是基于此原理。加壳的程序经常想尽办法阻止外部程序或软件对加壳程序的反汇编分析或者动态分析，以达到它不可告人的目的。这种技术也常用来保护软件版权，防止被软件破解。加壳工具通常分为压缩壳和加密壳两类。压缩壳的特点是减小软件体积大小，加密保护不是重点；加密壳种类比较多，不同的壳侧重点不同，一些壳单纯保护程序，另一些壳提供额外的功能，如提供注册机制，使用次数，时间限制等。
+
+软件的壳分为加密壳、压缩壳、伪装壳、多层壳等，目的都是为了隐藏程序真正的OEP(入口点，防止被破解)。
+
+作者编好软件后，编译成exe可执行文件。
+
+1.有一些版权信息需要保护起来，不想让别人随便改动，如作者的姓名，即为了保护软件不被破解，通常都是采用加壳来进行保护。
+
+2.需要把程序搞的小一点，从而方便使用。于是，需要用到一些软件，它们能将exe可执行文件压缩。
+
+3.在黑客界给木马等软件加壳脱壳以躲避杀毒软件。实现上述功能，这些软件称为加壳软件。
+
+脱壳分为手动和自动两种：
+
+手动：TRW2000、TR、SOFTICE等调试工具对付，对脱壳者有一定水平要求，涉及到很多汇编语言和软件调试方面的知识。
+
+自动：用专门的脱壳工具来脱。
+
+最常用某种压缩软件都有他人写的反压缩工具对应，有些压缩工具自身能解压，如UPX；如ASPACK，就需要UNASPACK对付，好处是简单，缺点是版本更新了就没用了。
+
+脱壳用专门的脱壳工具来对付，最流行的是PROCDUMP v1.62，可对付各种压缩软件的压缩档。
+
+脱壳的基本原则就是单步跟踪，只能往前，不能往后。
+
+脱壳流程：查壳-&gt;寻找OEP-&gt;DUMP-&gt;修复
+
+寻找OEP的一般思路如下：先看壳是加密壳还是压缩壳，压缩壳相对来说容易些，一般是没有异常，找到对应的popad后就能到入口，跳到入口的方式一般为：jmp OEP,push OEP ret, call OEP, je OEP（段之间的大跳转），OD的反汇编窗口里都是同一个段的内容，所以更好区别是否是段间跳转。我们知道文件被一些压缩加壳软件加密，下一步我们就要分析加密软件的名称、版本。因为不同软件甚至不同版本加的壳，脱壳处理的方法都不相同。
+
+脱壳工具：
+
+文件分析工具（侦测壳的类型）：Fi, GetTyp, peid, pe-scan;
+
+OEP入口查找工具：SoftICE, TRW, ollydbg, loader, peid;
+
+dump工具：IceDump, TRW, PEditor, ProcDump32, LordPE;
+
+PE文件编辑工具：PEditor,ProcDump32, LordPE;
+
+重建Import Table工具：ImportREC, ReVirgin;
+
+ASProtect脱壳专用工具：Caspr（ASPr V1.1-V1.2有效），Rad（只对ASPr V1.1有效），loader，peid
+
+（1）Aspack： 用的最多，但只要用UNASPACK或PEDUMP32脱壳就行了
+
+（2）ASProtect+aspack：次之，国外的软件多用它加壳，脱壳时需要用到SOFTICE+ICEDUMP，需要一定的专业知识。
+
+（3）Upx： 可以用UPX本身来脱壳，但要注意版本是否一致，用-D 参数
+
+（4）Armadill： 可以用SOFTICE+ICEDUMP脱壳，比较烦
+
+（5）Dbpe： 国内比较好的加密软件，新版本暂时不能脱，但可以破解
+
+（6）NeoLite： 可以用自己来脱壳
+
+（7）Pcguard： 可以用SOFTICE+ICEDUMP+FROGICE来脱壳
+
+（8）Pecompat： 用SOFTICE配合PEDUMP32来脱壳，但不要专业知识
+
+（9）Petite： 有一部分的老版本可以用PEDUMP32直接脱壳，新版本脱壳时需要用到SOFTICE+ICEDUMP，需要一定的专业知识
+
+（10）WWpack32： 和PECOMPACT一样其实有一部分的老版本可以用PEDUMP32直接脱壳，不过有时候资源无法修改，也就无法汉化，所以最好还是用SOFTICE配合 PEDUMP32脱壳 我们通常都会使用Procdump32这个通用脱壳软件，它是一个强大的脱壳软件，他可以解开绝大部分的加密外壳，还有脚本功能可以使用脚本轻松解开特定外壳的加密文件。另外很多时候我们要用到exe可执行文件编辑软件ultraedit。我们可以下载它的汉化注册版本，它的注册机可从网上搜到。ultraedit打开一个中文软件，若加壳，许多汉字不能被认出 ultraedit打开一个中文软件，若未加壳或已经脱壳，许多汉字能被认出 ultraedit可用来检验壳是否脱掉，以后它的用处还很多，请熟练掌握例如，可用它的替换功能替换作者的姓名为你的姓名注意字节必须相等，两个汉字替两个，三个替三个，不足处在ultraedit编辑器左边用00补。
+
+壳脱法：
+
+1、aspack壳：脱壳可以用unaspack或casper
+
+（1）unaspack，使用方法类似language,傻瓜式软件，运行后选取待脱壳的软件即可，缺点是只能脱aspack早些时候版本的壳，不能脱高版本的壳
+
+（2）casper: a),待脱壳的软件（如aa.exe）和casper.exe位于同一目录下，执行window起始菜单的运行，键入casper aa.exe脱壳后的文件为aa.ex_,删掉原来的aa.exe，将aa.ex_改名为aa.exe即可。使用方法类似fi，优点是可以脱aspack任何版本的壳，脱壳能力极强，缺点是Dos界面。  b),将aa.exe的图标拖到casper.exe的图标上，若已侦测出是aspack壳，用unaspack脱壳出错，说明是aspack高版本的壳，用casper脱即可。
+
+2、upx壳：脱壳可用upx
+
+待脱壳的软件（如aa.exe）和upx.exe位于同一目录下，执行windows起始菜单的运行，键入upx -d aa.exe。
+
+3、PEcompact壳：脱壳可用unpecompact
+
+使用方法类似lanuage傻瓜式软件，运行后选取待脱壳的软件即可。
+
+4、procdump：万能脱壳，但不精，一般不要用
+
+使用方法：运行后，先指定壳的名称，再选定欲脱壳软件，确定即可，脱壳后的文件大于原文件，由于脱壳软件很成熟，手动脱壳一般用不到。
+
+侦测壳和软件所用编写语言的软件，因为脱壳前要查壳的类型。
+
+1、侦测壳的软件fileinfo.exe简称fi.exe
+
+2、侦测壳和软件所用编写语言的软件language.exe，推荐language2000中文版（专门检测加壳类型）
+
+3、软件常用编写语言Delphi,VisualBasic（VB，最难破），VisualC（VC）<br />
+<pre class="hljs css"><code class="css">   一、<span class="hljs-selector-tag">PE</span>格式
+   <span class="hljs-selector-tag">PE</span>是<span class="hljs-selector-tag">Portable</span> <span class="hljs-selector-tag">Executable</span> <span class="hljs-selector-tag">File</span> <span class="hljs-selector-tag">Format</span>（可移植的执行体）简写。是<span class="hljs-selector-tag">windows</span>平台上的主流可执行文件格式。
+   学习<span class="hljs-selector-tag">PE</span>格式的方法是自己先准备一个十六进制工具，如<span class="hljs-selector-tag">HexWorkshop</span>，<span class="hljs-selector-tag">WinHex</span>，用这些工具打开一个<span class="hljs-selector-tag">EXE</span>文件对照着学。强烈推荐用<span class="hljs-selector-tag">Stud_PE</span> <span class="hljs-selector-tag">v</span><span class="hljs-selector-class">.2</span><span class="hljs-selector-class">.2</span><span class="hljs-selector-class">.0</span><span class="hljs-selector-class">.5</span>这款工具辅助学习<span class="hljs-selector-tag">PE</span>格式。<span class="hljs-selector-tag">PE</span>格式学习的重点是在输入表（<span class="hljs-selector-tag">Import</span> <span class="hljs-selector-tag">Table</span>）这块。
+   
+  二、<span class="hljs-selector-tag">SEH</span>格式
+   结构化异常处理（<span class="hljs-selector-tag">Structured</span> <span class="hljs-selector-tag">Exception</span> <span class="hljs-selector-tag">Handling</span>）是<span class="hljs-selector-tag">windows</span>操作系统处理程序错误或异常的技术。<span class="hljs-selector-tag">SEH</span>是<span class="hljs-selector-tag">windows</span>操作系统的一种系统机制，与特定的程序设计语言无关。
+   外壳程序里大量使用了<span class="hljs-selector-tag">SEH</span>，如果不了解<span class="hljs-selector-tag">SEH</span>，将会使你跟踪十分困难。由于 <span class="hljs-selector-tag">Ollydbg</span>   对<span class="hljs-selector-tag">SEH</span>处理异常灵活，因此脱壳用<span class="hljs-selector-tag">Ollydbg</span>会大大提高效率。
+
+ 三、认识壳
+    一般壳的装载过程：
+    (1)获取壳自己所需要使用的<span class="hljs-selector-tag">API</span>地址
+    (2)解密源程序的各个区块(<span class="hljs-selector-tag">section</span>)的数据
+    (3)重定位
+    (4)<span class="hljs-selector-tag">HOOK-API</span>
+    (5)跳转到程序原入口点(<span class="hljs-selector-tag">OEP</span>)      
+四、常见压缩壳与加密壳        
+</code></pre>
+常用压缩壳：
+
+（1）ASPack:是款Win32可执行文件压缩软件，可压缩windows 32位可执行文件（.exe）以及库文件（.dll, .ocx），文件压缩比率高达40%-70%。
+
+（2） UPX：是一个以命令行方式操作的可执行文件经典免费压缩程序，压缩算法自己实现，速度极快。（开源）
+
+（3）PECompact：同样也是一款能压缩可执行文件的工具（支持EXE、DLL、SCR、OCX等文件）。相比同类软件，PECompact提供了多种压缩项目的选择，用户可以根据需要确定哪些内部资源需要压缩处理。同时，该软件还提供了加解密的插件接口功能。
+
+常用加密壳：
+
+（1）ASProtect：是一款非常强大的Windows 32位保护工具，这4、5年来，其一直在更新进步。其开发者是俄国人Alexey Solodovnikov。它拥有压缩、加密、反跟踪代码、反-反汇编代码、CRC校验和花指令等保护措施。它使用Blowfish、Twofish、TEA等强劲的加密算法，还用RSA1024作为注册密钥生成器。它还通过API钩子（API hooks，包括Import hooks（GPA hook）和Export hooks）与加壳的程序进行通信。甚至用到了多态变形引擎（Polymorphic Engine）。反Apihook代码（Anti-Apihook Code）和BPE32的多态变形引擎（BPE32的Polymorphic Engine）。并且ASProtect为软件开发人员提供SDK，实现加密程序内外结合。
+
+（2） Armadillo加密壳：也称穿山甲，是一款应用面较广的壳。可以运用各种手段来保护你的软件，同时也可以为软件加上种种限制，包括时间、次数，启动画面等等！很多商用软件采用其加壳。Armadillo对外发行时有Public，Custom两个版本。Public是公开演示的版本，Custom是注册用户拿到的版本。只有Custom才有完整的功能，Public版有功能限制，没什么强度，不建议采用。
+
+（3）EXECryptor加密壳：也是一款猛壳，可能由于兼容性等原因，采用其保护的商业软件不是太多。这款壳的特点是Anti-Debug做的比较隐蔽，另外就是采用了虚拟机保护一些关键代码。
+
+（4）hemida加密壳：Themida是Oreans的一款商业壳，官方链接：<a href="https://link.jianshu.com/?t=http://www.oreans.com" rel="nofollow" target="_blank">www.oreans.com</a>。Themida 1.1以前版本带驱动，稳定性有些影响。Themida最大特点就是其虚拟机保护技术，因此在程序中擅用SDK，将关键的代码让Themida用虚拟机保护起来。Themida最大的缺点就是生成的软件有些大。WinLicense这款壳和Themida是同一公司的一个系列产品，WinLicense主要多了一个协议，可以设定使用时间，运行次数等功能，两者核心保护是一样的。
+
+（5） VMProtect： VMProtect是一款纯虚拟机保护软件，官方链接：<a href="https://link.jianshu.com/?t=http://www.VMProtect.ru" rel="nofollow" target="_blank">www.VMProtect.ru</a>。它是当前最强的虚拟机保护软件，经VMProtect处理过的代码，至今还没有人公开宣称能还原。  但也有缺点，就是会影响程序速度，因此在一些对速度要求很高的场合就不适合用了。VMProtect 1.22.3之前是免费版，可以支持EXE，DLL等文件。更高版本需要购买，其支持驱动的保护。现在流行的做法，先用VMProtect将你的核心代码处理一下，再选用一款兼容性好的壳保护。
+
+五、文件类型分析
+
+文件分析工具有PEID，FileInfo等。
+
+PEID：原理是利用查特征串搜索来完成识别工作的。</div>
+作者：plutoG7
+链接：https://www.jianshu.com/p/f6292e3bff73
+來源：简书
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</pre>
