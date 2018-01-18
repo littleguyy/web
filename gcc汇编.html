@@ -579,3 +579,128 @@ If you have found any glaring typos, or outdated info in this document, please l
 <li><a href="http://gcc.gnu.org/onlinedocs/gcc_toc.html">Using and Porting the GNU Compiler Collection (GCC)</a></li>
 <li><a href="http://ftp.kernel.org/">Linux Kernel Source</a></li>
 </ol>
+<div>
+作者：杨鹏飞<br />链接：https://www.zhihu.com/question/31816461/answer/53424604<br />来源：知乎<br />著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。<br /><br /><div>
+楼主遇到的问题应该是寄存器和局部变量使用的问题。我这边没有windows的环境，环境：fedora 64位。<br />
+<ul>
+<li>最基本的内联汇编，使用寄存器的代码：</li>
+</ul>
+<div class="highlight">
+<pre><code class="language-c"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="n">asm</span><span class="p">(</span><span class="s">"nop</span><span class="se">\n\t</span><span class="s">"</span>
+        <span class="s">"movl $0, %eax</span><span class="se">\n\t</span><span class="s">"</span>
+        <span class="s">"movl $2, %ebx</span><span class="se">\n\t</span><span class="s">"</span>
+        <span class="s">"int $0x80"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+在要使用的寄存器前加%即可。<br /><ul>
+<li>如果要使用全局变量，那直接引用即可</li>
+</ul>
+<div class="highlight">
+<pre><code class="language-text">#include &lt;stdio.h&gt;
+int a = 10; 
+int b = 20; 
+int result;
+int main() {
+    asm("nop\n\t"
+            "movl a, %eax\n\t"
+            "movl b, %ebx\n\t"
+            "imull %ebx, %eax\n\t"
+            "movl %eax, result\n\t");
+    printf("the answer is %d\n", result);
+    return 0;
+}
+</code></pre>
+</div>
+<br /><ul>
+<li>使用寄存器地址偏移地址</li>
+</ul>
+<div class="highlight">
+<pre><code class="language-text">#include &lt;stdio.h&gt;
+int main(){
+    asm("nop\n\t"
+        "movl $0, 4(%eax)\n\t"
+        "movl $2, %ebx\n\t"
+        "int $0x80");
+}
+</code></pre>
+</div>
+<br /><b>到目前位置，我们使用的都是寄存器和全局变量，但在实际开发过程中，寄存器是有个数限制的，而且要大量实用到局部变量。所以要用到扩展asm。格式如下</b><br /><blockquote>
+asm ("assembly code" : output location : input operands : chagned registers)</blockquote>
+四部分，分别是<br /><ol>
+<li>汇编代码</li>
+<li>输出位置</li>
+<li>输入操作数</li>
+<li>改动的寄存器</li>
+</ol>
+<br /><ul>
+<li>实用寄存器，和局部变量</li>
+</ul>
+<div class="highlight">
+<pre><code class="language-c"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">data1</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span> 
+    <span class="kt">int</span> <span class="n">data2</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span> 
+    <span class="kt">int</span> <span class="n">result</span><span class="p">;</span>
+    <span class="n">__asm__</span><span class="p">(</span><span class="s">"imull %%edx, %%ecx</span><span class="se">\n\t</span><span class="s">"</span> <span class="c1">//寄存器要多一个%</span>
+                <span class="s">"movl %%ecx, %%eax</span><span class="se">\n\t</span><span class="s">"</span>
+                <span class="o">:</span> <span class="s">"=a"</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="c1">//=表示只能写入result，a则代表是eax</span>
+                <span class="o">:</span> <span class="s">"d"</span><span class="p">(</span><span class="n">data1</span><span class="p">),</span> <span class="s">"c"</span><span class="p">(</span><span class="n">data2</span><span class="p">));</span> <span class="c1">//d代表edx,c代表ecx</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"the result is %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+<ul>
+<li>上一个例子，我们是把变量赋值给寄存器，如果变量太多，这样编程会很麻烦，这时候要引入占位符。使用占位符引用输入输出。占位符就是前面加%的数字，引用的是输入输出值在asm中出现的位置，从0开始。看例子</li>
+</ul>
+<div class="highlight">
+<pre><code class="language-text">int main() {
+    int data1 = 10;
+    int data2 = 20;
+    int result;
+    __asm__ ("imull %1, %2\n\t"
+           "movl %2, %0"
+            : "=r"(result) //占位符从0开始编号，result就是0，=表示只能写入result
+            : "r"(data1), "r"(data2)); //那这两个的占位符就是1，2
+    printf("the result is %d\n", result);
+    return 0;
+}
+</code></pre>
+</div>
+<ul>
+<li>看上面，如果变量过多，用1，2，3表示也太蛋疼了，所以可以替换占位符</li>
+</ul>
+<div class="highlight">
+<pre><code class="language-text">int main() {
+    int data1 = 10;
+    int data2 = 20;
+    int result;
+    __asm__ ("imull %[value1], %[value2]\n\t"
+            : [value2]"=r"(data2)
+            : [value1]"r"(data1), "0"(data2));
+    printf("the result is %d\n", data2);
+    return 0;
+}
+</code></pre>
+</div>
+<ul>
+<li>不用寄存器，直接引用变量的内存位置。</li>
+</ul>
+<div class="highlight">
+<pre><code class="language-c"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">dividend</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">divisor</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">result</span><span class="p">;</span>
+    <span class="n">asm</span><span class="p">(</span><span class="s">"divb %2</span><span class="se">\n\t</span><span class="s">"</span>
+            <span class="s">"movl %%eax, %0"</span>
+            <span class="o">:</span> <span class="s">"=m"</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+            <span class="o">:</span> <span class="s">"a"</span><span class="p">(</span><span class="n">dividend</span><span class="p">),</span> <span class="s">"m"</span><span class="p">(</span><span class="n">divisor</span><span class="p">));</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"result is %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+希望对楼主有所帮助，吃饭去了</div>
+</div>
