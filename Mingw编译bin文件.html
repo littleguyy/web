@@ -193,4 +193,152 @@ The option&nbsp;<code class="literal" style="color: #008800; font-family: dejavu
 00000403 d eoa</code>
 </pre>
 From the symbol table it is obvious that the&nbsp;<code class="literal" style="color: #008800; font-family: dejavusansmono, courier, monospace; font-size: 17.6px;">.text</code>&nbsp;is placed starting from address&nbsp;<code class="literal" style="color: #008800; font-family: dejavusansmono, courier, monospace; font-size: 17.6px;">0x0</code>&nbsp;and&nbsp;<code class="literal" style="color: #008800; font-family: dejavusansmono, courier, monospace; font-size: 17.6px;">.data</code>&nbsp;section is placed starting from address&nbsp;<code class="literal" style="color: #008800; font-family: dejavusansmono, courier, monospace; font-size: 17.6px;">0x400</code>.</div>
-<br /><a href="https://sourceware.org/binutils/docs/ld/Scripts.html#Scripts">ld命令的linker脚本</a>
+<h1 class="firstHeading" id="firstHeading" style="background-attachment: initial; background-clip: initial; background-image: none; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; border-bottom: 1px solid rgb(170, 170, 170); font-family: sans-serif; font-size: 1.6em; font-weight: normal; line-height: 1.2em; margin: 0px 0px 0.1em; overflow: hidden; padding-bottom: 0px; padding-top: 0px; width: auto;">
+Linker Scripts</h1>
+<div id="bodyContent" style="font-family: sans-serif; font-size: 0.8em; line-height: 1.5em; position: relative; width: 1096px;">
+<div id="contentSub" style="color: #7d7d7d; font-size: 12px; line-height: 1.2em; margin: 0px 0px 1.4em 1em; width: auto;">
+</div>
+<div class="mw-content-ltr" dir="ltr" lang="en" style="direction: ltr;">
+<center>
+<table style="background-color: #f0f0ff; border: 1px solid rgb(207, 207, 191); font-size: 12.8px; margin-bottom: 25px; margin-top: 25px; text-align: center;"><tbody>
+<tr><td><div style="line-height: 1.5em; margin-bottom: 0.5em; margin-top: 0.4em;">
+<a class="image" href="http://wiki.osdev.org/File:Under_Construction.png" style="background: none; color: #0b0080; text-decoration-line: none;" title="This page is under construction!"><img alt="This page is under construction!" height="50" src="http://wiki.osdev.org/images/1/14/Under_Construction.png" style="border: none; margin: 0px; vertical-align: middle;" width="50" /></a>&nbsp;This page is a work in progress and may thus be incomplete. Its content may be changed in the near future.</div>
+</td><td></td></tr>
+</tbody></table>
+</center>
+<div style="line-height: 1.5em; margin-bottom: 0.5em; margin-top: 0.4em;">
+So what exactly is a linker script, and do I really need one? In all basic cases, you can technically do without, as you can specify a lot of options on the&nbsp;<a href="http://wiki.osdev.org/LD" style="background-attachment: initial; background-clip: initial; background-image: none; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; color: #0b0080; text-decoration-line: none;" title="LD">GNU ld</a>&nbsp;command line, but how fun is that to type 100 characters over and over? A linker script is basically a nice little file you can create that ld will parse and link according to it.</div>
+<table class="toc" id="toc" style="background-color: #f9f9f9; border: 1px solid rgb(170, 170, 170); font-size: 12.16px; padding: 5px;"><tbody>
+<tr><td><div id="toctitle" style="direction: ltr; text-align: center;">
+<h2 style="background: none; border: none; display: inline; font-size: 12.16px; margin: 0px 0px 0.6em; overflow: hidden; padding: 0px; width: auto;">
+Contents</h2>
+<span class="toctoggle" style="font-size: 12px;">&nbsp;[<a class="internal" href="http://wiki.osdev.org/Linker_Scripts#" id="togglelink" style="background: none; color: #0b0080; text-decoration-line: none;">hide</a>]&nbsp;</span></div>
+<ul style="line-height: 1.5em; list-style-image: none; list-style-type: none; margin: 0.3em 0px; padding: 0px;">
+<li class="toclevel-1 tocsection-1" style="margin-bottom: 0.1em;"><a href="http://wiki.osdev.org/Linker_Scripts#Keywords" style="background: none; color: #0b0080; text-decoration-line: none;"><span class="tocnumber">1</span>&nbsp;<span class="toctext">Keywords</span></a><ul style="line-height: 1.5em; list-style-image: none; list-style-type: none; margin: 0px 0px 0px 2em; padding: 0px;">
+<li class="toclevel-2 tocsection-2" style="margin-bottom: 0.1em;"><a href="http://wiki.osdev.org/Linker_Scripts#ENTRY" style="background: none; color: #0b0080; text-decoration-line: none;"><span class="tocnumber">1.1</span>&nbsp;<span class="toctext">ENTRY</span></a></li>
+<li class="toclevel-2 tocsection-3" style="margin-bottom: 0.1em;"><a href="http://wiki.osdev.org/Linker_Scripts#OUTPUT_FORMAT" style="background: none; color: #0b0080; text-decoration-line: none;"><span class="tocnumber">1.2</span>&nbsp;<span class="toctext">OUTPUT_FORMAT</span></a></li>
+<li class="toclevel-2 tocsection-4" style="margin-bottom: 0.1em;"><a href="http://wiki.osdev.org/Linker_Scripts#STARTUP" style="background: none; color: #0b0080; text-decoration-line: none;"><span class="tocnumber">1.3</span>&nbsp;<span class="toctext">STARTUP</span></a></li>
+<li class="toclevel-2 tocsection-5" style="margin-bottom: 0.1em;"><a href="http://wiki.osdev.org/Linker_Scripts#SEARCH_DIR" style="background: none; color: #0b0080; text-decoration-line: none;"><span class="tocnumber">1.4</span>&nbsp;<span class="toctext">SEARCH_DIR</span></a></li>
+<li class="toclevel-2 tocsection-6" style="margin-bottom: 0.1em;"><a href="http://wiki.osdev.org/Linker_Scripts#INPUT" style="background: none; color: #0b0080; text-decoration-line: none;"><span class="tocnumber">1.5</span>&nbsp;<span class="toctext">INPUT</span></a></li>
+<li class="toclevel-2 tocsection-7" style="margin-bottom: 0.1em;"><a href="http://wiki.osdev.org/Linker_Scripts#OUTPUT" style="background: none; color: #0b0080; text-decoration-line: none;"><span class="tocnumber">1.6</span>&nbsp;<span class="toctext">OUTPUT</span></a></li>
+<li class="toclevel-2 tocsection-8" style="margin-bottom: 0.1em;"><a href="http://wiki.osdev.org/Linker_Scripts#MEMORY" style="background: none; color: #0b0080; text-decoration-line: none;"><span class="tocnumber">1.7</span>&nbsp;<span class="toctext">MEMORY</span></a></li>
+<li class="toclevel-2 tocsection-9" style="margin-bottom: 0.1em;"><a href="http://wiki.osdev.org/Linker_Scripts#SECTIONS" style="background: none; color: #0b0080; text-decoration-line: none;"><span class="tocnumber">1.8</span>&nbsp;<span class="toctext">SECTIONS</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10" style="margin-bottom: 0.1em;"><a href="http://wiki.osdev.org/Linker_Scripts#See_Also" style="background: none; color: #0b0080; text-decoration-line: none;"><span class="tocnumber">2</span>&nbsp;<span class="toctext">See Also</span></a><ul style="line-height: 1.5em; list-style-image: none; list-style-type: none; margin: 0px 0px 0px 2em; padding: 0px;">
+<li class="toclevel-2 tocsection-11" style="margin-bottom: 0.1em;"><a href="http://wiki.osdev.org/Linker_Scripts#External_Links" style="background: none; color: #0b0080; text-decoration-line: none;"><span class="tocnumber">2.1</span>&nbsp;<span class="toctext">External Links</span></a></li>
+</ul>
+</li>
+</ul>
+</td></tr>
+</tbody></table>
+<h2 style="background-attachment: initial; background-clip: initial; background-image: none; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; border-bottom: 1px solid rgb(170, 170, 170); font-size: 19.2px; font-weight: normal; margin: 0px 0px 0.6em; overflow: hidden; padding-bottom: 0.17em; padding-top: 0.5em; width: auto;">
+<span class="mw-headline" id="Keywords">Keywords</span></h2>
+<div style="line-height: 1.5em; margin-bottom: 0.5em; margin-top: 0.4em;">
+I won't cover all of the keywords here, but I will cover the ones that will most likely be used.</div>
+<h4 style="background-attachment: initial; background-clip: initial; background-image: none; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; border-bottom: none; font-size: 14.848px; margin: 0px 0px 0.3em; overflow: hidden; padding-bottom: 0.17em; padding-top: 0.5em; width: auto;">
+<span class="mw-headline" id="ENTRY">ENTRY</span></h4>
+<pre style="background-color: #f9f9f9; border: 1px dashed rgb(47, 111, 171); font-family: monospace, &quot;Courier New&quot;; line-height: 1.3em; padding: 1em;">ENTRY(main)
+ENTRY(MultibootEntry)
+</pre>
+<div style="line-height: 1.5em; margin-bottom: 0.5em; margin-top: 0.4em;">
+ENTRY takes one argument. That is the symbol name for the entry point of the linked program/kernel. This can be "start" or "__main" or whatever, it's really up to you, but this will be the very first byte of your loaded program(or the first byte of the .text section in&nbsp;<a href="http://wiki.osdev.org/ELF" style="background-attachment: initial; background-clip: initial; background-image: none; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; color: #0b0080; text-decoration-line: none;" title="ELF">ELF</a>&nbsp;and&nbsp;<a href="http://wiki.osdev.org/PE" style="background-attachment: initial; background-clip: initial; background-image: none; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; color: #0b0080; text-decoration-line: none;" title="PE">PE</a>&nbsp;binaries).</div>
+<h4 style="background-attachment: initial; background-clip: initial; background-image: none; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; border-bottom: none; font-size: 14.848px; margin: 0px 0px 0.3em; overflow: hidden; padding-bottom: 0.17em; padding-top: 0.5em; width: auto;">
+<span class="mw-headline" id="OUTPUT_FORMAT">OUTPUT_FORMAT</span></h4>
+<pre style="background-color: #f9f9f9; border: 1px dashed rgb(47, 111, 171); font-family: monospace, &quot;Courier New&quot;; line-height: 1.3em; padding: 1em;">OUTPUT_FORMAT(elf64-x86-64)
+OUTPUT_FORMAT("pe-i386")
+</pre>
+<div style="line-height: 1.5em; margin-bottom: 0.5em; margin-top: 0.4em;">
+OUTPUT_FORMAT also takes one argument. It specifies what the output format of your executable will be. To find out what formats your binutils and GCC supports, just use 'objdump -i'. Some of the more common formats are</div>
+<ul style="line-height: 1.5em; list-style-image: url(&quot;data:image/png; list-style-type: square; margin: 0.3em 0px 0px 1.5em; padding: 0px;">
+<li style="margin-bottom: 0.1em;">binary --This is just a flat binary with no formatting at all</li>
+<li style="margin-bottom: 0.1em;">elf32-i386 --This is just the ELF format, usually little endian too.</li>
+<li style="margin-bottom: 0.1em;">elf64-x86-64 --This is the ELF format for 64bit, usually little endian.</li>
+<li style="margin-bottom: 0.1em;">pe-i386 --The PE format</li>
+</ul>
+<h4 style="background-attachment: initial; background-clip: initial; background-image: none; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; border-bottom: none; font-size: 14.848px; margin: 0px 0px 0.3em; overflow: hidden; padding-bottom: 0.17em; padding-top: 0.5em; width: auto;">
+<span class="mw-headline" id="STARTUP">STARTUP</span></h4>
+<pre style="background-color: #f9f9f9; border: 1px dashed rgb(47, 111, 171); font-family: monospace, &quot;Courier New&quot;; line-height: 1.3em; padding: 1em;">STARTUP(Boot.o)
+STARTUP(crt0.o)
+</pre>
+<div style="line-height: 1.5em; margin-bottom: 0.5em; margin-top: 0.4em;">
+STARTUP takes one argument. It is which file you want to be linked to the very beginning of the executable. For userland programs, this is usually crt0.o or crtbegin.o. For kernels, it is usually the file that contains your assembly boilerplate that initiates the stack and in some cases GDT and such and then calls your kmain().</div>
+<h4 style="background-attachment: initial; background-clip: initial; background-image: none; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; border-bottom: none; font-size: 14.848px; margin: 0px 0px 0.3em; overflow: hidden; padding-bottom: 0.17em; padding-top: 0.5em; width: auto;">
+<span class="mw-headline" id="SEARCH_DIR">SEARCH_DIR</span></h4>
+<pre style="background-color: #f9f9f9; border: 1px dashed rgb(47, 111, 171); font-family: monospace, &quot;Courier New&quot;; line-height: 1.3em; padding: 1em;">SEARCH_DIR(Directory)
+</pre>
+<div style="line-height: 1.5em; margin-bottom: 0.5em; margin-top: 0.4em;">
+This will add a path to your library search directory. The -nostdlib flag will cause any library found in this path to be effectively ignored. I'm not sure why, it just seems to be how ld works. It treats linker script specified search directories as standard directories, and therefore ignores them with -no-default-libs and such flags</div>
+<h4 style="background-attachment: initial; background-clip: initial; background-image: none; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; border-bottom: none; font-size: 14.848px; margin: 0px 0px 0.3em; overflow: hidden; padding-bottom: 0.17em; padding-top: 0.5em; width: auto;">
+<span class="mw-headline" id="INPUT">INPUT</span></h4>
+<pre style="background-color: #f9f9f9; border: 1px dashed rgb(47, 111, 171); font-family: monospace, &quot;Courier New&quot;; line-height: 1.3em; padding: 1em;">INPUT(File1.o File2.o File3.o ...)
+INPUT
+(
+	File1.o
+	File2.o
+	File3.o
+	...
+)
+</pre>
+<div style="line-height: 1.5em; margin-bottom: 0.5em; margin-top: 0.4em;">
+INPUT is a 'in-linker script' replacement for adding object files to the command line. Where you would usually specify something like&nbsp;<i>ld File1.o File2.o</i>, the INPUT section can be used to do this inside the linker script instead.</div>
+<h4 style="background-attachment: initial; background-clip: initial; background-image: none; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; border-bottom: none; font-size: 14.848px; margin: 0px 0px 0.3em; overflow: hidden; padding-bottom: 0.17em; padding-top: 0.5em; width: auto;">
+<span class="mw-headline" id="OUTPUT">OUTPUT</span></h4>
+<pre style="background-color: #f9f9f9; border: 1px dashed rgb(47, 111, 171); font-family: monospace, &quot;Courier New&quot;; line-height: 1.3em; padding: 1em;">OUTPUT(Kernel.bin)
+</pre>
+<div style="line-height: 1.5em; margin-bottom: 0.5em; margin-top: 0.4em;">
+OUTPUT specifies the file that has to be output by the linker. This is the name of the executable. For applications on Windows, for example, this is usually&nbsp;<i>.exe</i>.</div>
+<h4 style="background-attachment: initial; background-clip: initial; background-image: none; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; border-bottom: none; font-size: 14.848px; margin: 0px 0px 0.3em; overflow: hidden; padding-bottom: 0.17em; padding-top: 0.5em; width: auto;">
+<span class="mw-headline" id="MEMORY">MEMORY</span></h4>
+<pre style="background-color: #f9f9f9; border: 1px dashed rgb(47, 111, 171); font-family: monospace, &quot;Courier New&quot;; line-height: 1.3em; padding: 1em;">MEMORY
+{
+...
+}
+</pre>
+<div style="line-height: 1.5em; margin-bottom: 0.5em; margin-top: 0.4em;">
+MEMORY declares one or more memory regions with attributes specifying whether the region can be written to, read from or executed. This is mostly used in embedded systems where different regions of address space may contain different access permissions.</div>
+<div style="line-height: 1.5em; margin-bottom: 0.5em; margin-top: 0.4em;">
+For example:</div>
+<pre style="background-color: #f9f9f9; border: 1px dashed rgb(47, 111, 171); font-family: monospace, &quot;Courier New&quot;; line-height: 1.3em; padding: 1em;">MEMORY
+{
+    ROM (rx)&nbsp;: ORIGIN = 0, LENGTH = 256k
+    RAM (wx)&nbsp;: org = 0x00100000, len = 1M
+}
+</pre>
+<div style="line-height: 1.5em; margin-bottom: 0.5em; margin-top: 0.4em;">
+This script tells the linker that there are two memory regions. a) "ROM" starts at address 0x00000000, is 256kB in length, can be read and executed. b) "RAM" starts at address 0x00100000, is 1MB in length, can be written, read and executed.</div>
+<h4 style="background-attachment: initial; background-clip: initial; background-image: none; background-origin: initial; background-position: initial; background-repeat: initial; background-size: initial; border-bottom: none; font-size: 14.848px; margin: 0px 0px 0.3em; overflow: hidden; padding-bottom: 0.17em; padding-top: 0.5em; width: auto;">
+<span class="mw-headline" id="SECTIONS">SECTIONS</span></h4>
+<pre style="background-color: #f9f9f9; border: 1px dashed rgb(47, 111, 171); font-family: monospace, &quot;Courier New&quot;; line-height: 1.3em; padding: 1em;">SECTIONS
+{
+  .text.start (_KERNEL_BASE_)&nbsp;: {
+    startup.o( .text )
+  }
+
+  .text&nbsp;: ALIGN(0x1000) {
+_TEXT_START_ = .;
+    *(.text)
+_TEXT_END_ = .;
+  }
+
+  .data&nbsp;: ALIGN(0x1000) {
+_DATA_START_ = .;
+    *(.data)
+_DATA_END_ = .;
+  }
+
+  .bss&nbsp;: ALIGN(0x1000) {
+_BSS_START_ = .;
+    *(.bss)
+_BSS_END_ = .;
+  }
+
+
+}
+</pre>
+<div style="line-height: 1.5em; margin-bottom: 0.5em; margin-top: 0.4em;">
+This script tells the linker to place code from the ".text" section in startup.o at the beginning, starting at logical address _KERNEL_BASE_. This is then followed by page-aligned sections for all ".text", ".data" and ".bss" sections of all the other input files. Linker variables are defined for the start and end address of each section; C(++) code can refer to these using 'extern "C" void &lt;varname&gt;', and taking the address (&amp;&lt;varname&gt;) to use the value.</div>
+</div>
+</div>
+
+<br /><a href="https://sourceware.org/binutils/docs/ld/Scripts.html#Scripts">ld命令的linker脚本语法详解</a>
