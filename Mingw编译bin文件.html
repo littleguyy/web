@@ -97,3 +97,99 @@ As you can see the Hello, World is first, I am sort of a n00b to linkers and suc
 </td></tr>
 </tbody></table>
 </div>
+<div class="titlepage" style="background-color: white; font-family: serif;">
+<h2 class="title" style="clear: both; color: #880000; font-family: dejavusans, verdana, sans-serif; font-size: 23.2px;">
+7.&nbsp;Linker Script File</h2>
+</div>
+<div style="background-color: white; font-family: serif;">
+As mentioned in the previous section, section merging and placement is done by the linker. The programmer can control how the sections are merged, and at what locations they are placed in memory through a linker script file. A very simple linker script file, is shown below.</div>
+<div class="example" style="background-color: white; font-family: serif;">
+<a href="https://www.blogger.com/null" id="d0e1048" name="d0e1048"></a><div class="title" style="color: #880000; font-family: dejavusans, verdana, sans-serif; font-weight: bold;">
+<b>Listing&nbsp;6.&nbsp;Basic linker script</b></div>
+<div class="example-contents">
+<pre class="programlisting"><code class="no-highlight" style="background: rgb(238, 238, 238); border: thin solid rgb(204, 204, 204); display: block; font-family: dejavusansmono, courier, monospace; font-size: 22.4px; padding: 0.5em;">SECTIONS { <a href="https://www.blogger.com/null" id="CO3-1" name="CO3-1"></a>❶
+        . = 0x00000000; <a href="https://www.blogger.com/null" id="CO3-2" name="CO3-2"></a>❷
+        .text : { <a href="https://www.blogger.com/null" id="CO3-3" name="CO3-3"></a>❸
+                abc.o (.text);
+                def.o (.text);
+        } <a href="https://www.blogger.com/null" id="CO3-4" name="CO3-4"></a>❹
+}</code>
+</pre>
+</div>
+</div>
+<br class="example-break" style="background-color: white; font-family: serif;" />
+<div class="calloutlist" style="background-color: white; font-family: serif;">
+<table border="0" summary="Callout list"><tbody>
+<tr><td align="left" valign="top" width="5%"><a href="http://www.bravegnu.org/gnu-eprog/lds.html#CO3-1">❶</a></td><td align="left" valign="top">The&nbsp;<code class="literal" style="color: #008800; font-family: dejavusansmono, courier, monospace; font-size: 17.6px;">SECTIONS</code>&nbsp;command is the most important linker command, it specifies how the sections are to be merged and at what location they are to be placed.</td></tr>
+<tr><td align="left" valign="top" width="5%"><a href="http://www.bravegnu.org/gnu-eprog/lds.html#CO3-2">❷</a></td><td align="left" valign="top">Within the block following the&nbsp;<code class="literal" style="color: #008800; font-family: dejavusansmono, courier, monospace; font-size: 17.6px;">SECTIONS</code>&nbsp;command, the&nbsp;<code class="literal" style="color: #008800; font-family: dejavusansmono, courier, monospace; font-size: 17.6px;">.</code>&nbsp;(period) represents the location counter. The location is always initialised to&nbsp;<code class="literal" style="color: #008800; font-family: dejavusansmono, courier, monospace; font-size: 17.6px;">0x0</code>. It can be modified by assigning a new value to it. Setting the value to&nbsp;<code class="literal" style="color: #008800; font-family: dejavusansmono, courier, monospace; font-size: 17.6px;">0x0</code>&nbsp;at the beginning is superfluous.</td></tr>
+<tr><td align="left" valign="top" width="5%"><a href="http://www.bravegnu.org/gnu-eprog/lds.html#CO3-3">❸</a>&nbsp;<a href="http://www.bravegnu.org/gnu-eprog/lds.html#CO3-4">❹</a></td><td align="left" valign="top">This part of the script specifies that, the&nbsp;<code class="literal" style="color: #008800; font-family: dejavusansmono, courier, monospace; font-size: 17.6px;">.text</code>&nbsp;section from the input files&nbsp;<code class="literal" style="color: #008800; font-family: dejavusansmono, courier, monospace; font-size: 17.6px;">abc.o</code>&nbsp;and&nbsp;<code class="literal" style="color: #008800; font-family: dejavusansmono, courier, monospace; font-size: 17.6px;">def.o</code>&nbsp;should go to the&nbsp;<code class="literal" style="color: #008800; font-family: dejavusansmono, courier, monospace; font-size: 17.6px;">.text</code>&nbsp;section of the output file.</td></tr>
+</tbody></table>
+</div>
+<div style="background-color: white; font-family: serif;">
+The linker script can be further simplified and generalised by using the wild card character&nbsp;<code class="literal" style="color: #008800; font-family: dejavusansmono, courier, monospace; font-size: 17.6px;">*</code>&nbsp;instead of individually specifying the file names.</div>
+<div class="example" style="background-color: white; font-family: serif;">
+<a href="https://www.blogger.com/null" id="d0e1103" name="d0e1103"></a><div class="title" style="color: #880000; font-family: dejavusans, verdana, sans-serif; font-weight: bold;">
+<b>Listing&nbsp;7.&nbsp;Wildcard in linker scripts</b></div>
+<div class="example-contents">
+<pre class="programlisting"><code class="no-highlight" style="background: rgb(238, 238, 238); border: thin solid rgb(204, 204, 204); display: block; font-family: dejavusansmono, courier, monospace; font-size: 22.4px; padding: 0.5em;">SECTIONS {
+        . = 0x00000000;
+        .text : { * (.text); }
+}</code>
+</pre>
+</div>
+</div>
+<br class="example-break" style="background-color: white; font-family: serif;" />
+<div style="background-color: white; font-family: serif;">
+If the program contains both&nbsp;<code class="literal" style="color: #008800; font-family: dejavusansmono, courier, monospace; font-size: 17.6px;">.text</code>&nbsp;and&nbsp;<code class="literal" style="color: #008800; font-family: dejavusansmono, courier, monospace; font-size: 17.6px;">.data</code>&nbsp;sections, the&nbsp;<code class="literal" style="color: #008800; font-family: dejavusansmono, courier, monospace; font-size: 17.6px;">.data</code>&nbsp;section merging and location can be specified as shown below.</div>
+<div class="example" style="background-color: white; font-family: serif;">
+<a href="https://www.blogger.com/null" id="linker1" name="linker1"></a><div class="title" style="color: #880000; font-family: dejavusans, verdana, sans-serif; font-weight: bold;">
+<b>Listing&nbsp;8.&nbsp;Multiple sections in linker scripts</b></div>
+<div class="example-contents">
+<pre class="programlisting"><code class="no-highlight" style="background: rgb(238, 238, 238); border: thin solid rgb(204, 204, 204); display: block; font-family: dejavusansmono, courier, monospace; font-size: 22.4px; padding: 0.5em;">SECTIONS {
+         . = 0x00000000;
+         .text : { * (.text); }
+
+         . = 0x00000400;
+         .data : { * (.data); }
+}</code>
+</pre>
+</div>
+</div>
+<br class="example-break" style="background-color: white; font-family: serif;" />
+<div style="background-color: white; font-family: serif;">
+Here, the&nbsp;<code class="literal" style="color: #008800; font-family: dejavusansmono, courier, monospace; font-size: 17.6px;">.text</code>&nbsp;section is located at&nbsp;<code class="literal" style="color: #008800; font-family: dejavusansmono, courier, monospace; font-size: 17.6px;">0x0</code>&nbsp;and&nbsp;<code class="literal" style="color: #008800; font-family: dejavusansmono, courier, monospace; font-size: 17.6px;">.data</code>&nbsp;is located at&nbsp;<code class="literal" style="color: #008800; font-family: dejavusansmono, courier, monospace; font-size: 17.6px;">0x400</code>. Note that, if the location counter is not assigned a different value, the&nbsp;<code class="literal" style="color: #008800; font-family: dejavusansmono, courier, monospace; font-size: 17.6px;">.text</code>&nbsp;and&nbsp;<code class="literal" style="color: #008800; font-family: dejavusansmono, courier, monospace; font-size: 17.6px;">.data</code>&nbsp;sections will be located at adjacent memory locations.</div>
+<div class="section" style="background-color: white; font-family: serif;" title="7.1. Linker Script Example">
+<div class="titlepage">
+<h3 class="title" style="color: #880000; font-family: dejavusans, verdana, sans-serif; font-size: 20.8px;">
+<a href="https://www.blogger.com/null" name="_linker_script_example"></a>7.1.&nbsp;Linker Script Example</h3>
+</div>
+To demonstrate the use of linker scripts, we will use the linker script shown in&nbsp;<a class="xref" href="http://www.bravegnu.org/gnu-eprog/lds.html#linker1" title="Listing 8. Multiple sections in linker scripts">Listing&nbsp;8, “Multiple sections in linker scripts”</a>&nbsp;to control the placement of a program’s&nbsp;<code class="literal" style="color: #008800; font-family: dejavusansmono, courier, monospace; font-size: 17.6px;">.text</code>&nbsp;and&nbsp;<code class="literal" style="color: #008800; font-family: dejavusansmono, courier, monospace; font-size: 17.6px;">.data</code>&nbsp;section. We will use a slightly modified version of the sum of array program for this purpose. The code is shown below.<br />
+<pre class="programlisting"><code class="armasm" style="background: rgb(238, 238, 238); border: thin solid rgb(204, 204, 204); display: block; font-family: dejavusansmono, courier, monospace; font-size: 22.4px; padding: 0.5em;">        .<span class="hl-directive" style="color: maroon;">data</span>
+<b class="hl-keyword">arr:</b>    .<span class="hl-directive" style="color: maroon;">byte</span> <span class="hl-number" style="color: #008800;">10</span>, <span class="hl-number" style="color: #008800;">20</span>, <span class="hl-number" style="color: #008800;">25</span>        <i class="hl-comment" style="color: #888888;">@ Read-only array of bytes</i>
+<b class="hl-keyword">eoa:</b>                            <i class="hl-comment" style="color: #888888;">@ Address of end of array + 1</i>
+
+        .<span class="hl-directive" style="color: maroon;">text</span>
+<b class="hl-keyword">start:</b>
+        ldr   r0, =eoa          <i class="hl-comment" style="color: #888888;">@ r0 = &amp;eoa</i>
+        ldr   r1, =arr          <i class="hl-comment" style="color: #888888;">@ r1 = &amp;arr</i>
+        mov   r3, <span class="hl-number" style="color: #008800;">#0</span>            <i class="hl-comment" style="color: #888888;">@ r3 = 0</i>
+<b class="hl-keyword">loop:</b>   ldrb  r2, [r1], <span class="hl-number" style="color: #008800;">#1</span>      <i class="hl-comment" style="color: #888888;">@ r2 = *r1++</i>
+        add   r3, r2, r3        <i class="hl-comment" style="color: #888888;">@ r3 += r2</i>
+        cmp   r1, r0            <i class="hl-comment" style="color: #888888;">@ if (r1 != r2)</i>
+        bne   loop              <i class="hl-comment" style="color: #888888;">@    goto loop</i>
+<b class="hl-keyword">stop:</b>   b stop</code>
+</pre>
+The only change here is that the array is now in the&nbsp;<code class="literal" style="color: #008800; font-family: dejavusansmono, courier, monospace; font-size: 17.6px;">.data</code>&nbsp;section. Also note that the nasty branch instruction to skip over the data is also not required, since the linker script will place the&nbsp;<code class="literal" style="color: #008800; font-family: dejavusansmono, courier, monospace; font-size: 17.6px;">.text</code>&nbsp;section and&nbsp;<code class="literal" style="color: #008800; font-family: dejavusansmono, courier, monospace; font-size: 17.6px;">.data</code>&nbsp;section appropriately. As a result, statements can be placed in the program, in any convenient way, and the linker script will take care of placing the sections correctly in memory.<br />
+When the program is linked, the linker script is passed as an input to the linker, as shown in the following command.<br />
+<pre class="programlisting"><code class="no-highlight" style="background: rgb(238, 238, 238); border: thin solid rgb(204, 204, 204); display: block; font-family: dejavusansmono, courier, monospace; font-size: 22.4px; padding: 0.5em;">$ arm-none-eabi-as -o sum-data.o sum-data.s
+$ arm-none-eabi-ld -T sum-data.lds -o sum-data.elf sum-data.o</code>
+</pre>
+The option&nbsp;<code class="literal" style="color: #008800; font-family: dejavusansmono, courier, monospace; font-size: 17.6px;">-T sum-data.lds</code>&nbsp;specifies that&nbsp;<code class="literal" style="color: #008800; font-family: dejavusansmono, courier, monospace; font-size: 17.6px;">sum-data.lds</code>&nbsp;is to be used as the linker script. Dumping the symbol table, will provide an insight into how the sections are placed in memory.<br />
+<pre class="programlisting"><code class="no-highlight" style="background: rgb(238, 238, 238); border: thin solid rgb(204, 204, 204); display: block; font-family: dejavusansmono, courier, monospace; font-size: 22.4px; padding: 0.5em;">$ arm-none-eabi-nm -n sum-data.elf
+00000000 t start
+0000000c t loop
+0000001c t stop
+00000400 d arr
+00000403 d eoa</code>
+</pre>
+From the symbol table it is obvious that the&nbsp;<code class="literal" style="color: #008800; font-family: dejavusansmono, courier, monospace; font-size: 17.6px;">.text</code>&nbsp;is placed starting from address&nbsp;<code class="literal" style="color: #008800; font-family: dejavusansmono, courier, monospace; font-size: 17.6px;">0x0</code>&nbsp;and&nbsp;<code class="literal" style="color: #008800; font-family: dejavusansmono, courier, monospace; font-size: 17.6px;">.data</code>&nbsp;section is placed starting from address&nbsp;<code class="literal" style="color: #008800; font-family: dejavusansmono, courier, monospace; font-size: 17.6px;">0x400</code>.</div>
