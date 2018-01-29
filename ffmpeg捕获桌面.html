@@ -305,3 +305,27 @@ Send a message to&nbsp;<a class="mail-link" href="mailto:rogerdpack@gmail.com" s
 <li>passthrough so it can use locally installed dshow codecs on windows</li>
 <li>echo cancelling support (non dshow but mentioning it here)</li>
 </ul>
+<div>
+<div class="note" style="box-sizing: border-box; color: #333333; font-family: -apple-system, &quot;SF UI Text&quot;, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif; font-size: 17px; padding-top: 10px; position: relative;">
+<div class="post" style="box-sizing: border-box; margin: 0px auto; padding-bottom: 40px; padding-top: 20px; width: 620px;">
+<div class="article" style="box-sizing: border-box;">
+<div class="show-content" data-note-content="" style="box-sizing: border-box; color: #2f2f2f; font-size: 16px; line-height: 1.7; word-break: break-word !important;">
+<div style="box-sizing: border-box; margin-bottom: 25px; word-break: break-word !important;">
+<br /></div>
+<div style="box-sizing: border-box; margin-bottom: 25px; word-break: break-word !important;">
+</div>
+<h3 style="box-sizing: border-box; font-family: inherit; font-size: 22px; line-height: 1.7; margin: 0px 0px 15px; text-rendering: optimizeLegibility;">
+二、FFmpeg推流</h3>
+<div>
+<pre class="hljs cpp" style="background: rgb(246, 246, 246); border-radius: 0px; border: 1px solid rgb(204, 204, 204); box-sizing: border-box; color: #657b83; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 13px; line-height: 1.42857; margin-bottom: 20px; overflow: auto; padding: 15px; text-size-adjust: none; word-break: break-word !important; word-wrap: normal;"><code class="cpp" style="background-color: transparent; border-radius: 0px; border: none; box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12px; padding: 0px;">ffmpeg -re -i /Users/xu/Desktop/bangbangbang.mp4 -vcodec libx264 -acodec aac -f flv rtmp:<span class="hljs-comment" style="box-sizing: border-box; color: #93a1a1;">//localhost:1935/rtmplive/home</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<h3 style="background-color: white; box-sizing: border-box; color: #2f2f2f; font-family: -apple-system, &quot;SF UI Text&quot;, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif; font-size: 22px; line-height: 1.7; margin: 0px 0px 15px; text-rendering: optimizeLegibility;">
+三、用ffmpeg推流桌面</h3>
+<div>
+<pre class="hljs cpp" style="background: rgb(246, 246, 246); border-radius: 0px; border: 1px solid rgb(204, 204, 204); box-sizing: border-box; color: #657b83; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 13px; line-height: 1.42857; margin-bottom: 20px; overflow: auto; padding: 15px; text-size-adjust: none; word-break: break-word !important; word-wrap: normal;"><code class="cpp" style="background-color: transparent; border-radius: 0px; border: none; box-sizing: border-box; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12px; padding: 0px;">ffmpeg -f avfoundation -i <span class="hljs-string" style="box-sizing: border-box; color: #2aa198;">"1"</span> -vcodec libx264 -preset ultrafast -acodec libfaac -f flv rtmp:<span class="hljs-comment" style="box-sizing: border-box; color: #93a1a1;">//localhost:1935/rtmplive/home</span></code></pre>
+</div>
