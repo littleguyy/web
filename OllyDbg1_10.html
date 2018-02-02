@@ -1,0 +1,98 @@
+<center>
+<b><span style="color: #990000;"><span>Quick start - version 1.10</span></span></b></center>
+<b>Read this for quick start</b>. Consult help file for details and more features.<br />
+<b>Installation</b>&nbsp;is not necessary. Create new directory and unpack odbg110.zip - now you can start!<br />
+<b>Pop-up menus</b>&nbsp;display only items that apply.&nbsp;<b>Frequently used menu functions:</b><br /><br />
+<table bgcolor="#ccffff" border="1" cols="4" style="width: 100%px;"><tbody>
+<tr><td width="200"><b>Function</b></td><td width="150"><b>Window</b></td><td width="200"><b>Menu command</b></td><td width="80"><b>Shortcut</b></td></tr>
+<tr><td>Edit memory as binary, ASCII or UNICODE string</td><td>Disassembler, Stack<br />Dump</td><td>Binary|Edit</td><td>Ctrl+E</td></tr>
+<tr><td>Undo changes</td><td>Disassembler, Dump<br />Registers</td><td>Undo selection<br />Undo</td><td>Alt+BkSp</td></tr>
+<tr><td>Run application</td><td>Main</td><td>Debug|Run</td><td>F9</td></tr>
+<tr><td>Run to selection</td><td>Disassembler</td><td>Breakpoint|Run to selection</td><td>F4</td></tr>
+<tr><td>Execute till return</td><td>Main</td><td>Debug|Execute till return</td><td>Ctrl+F9</td></tr>
+<tr><td>Execute till user code</td><td>Main</td><td>Debug|Execute till user code</td><td>Alt+F9</td></tr>
+<tr><td>Set/reset INT3 breakpoint</td><td>Disassembler<br />Names, Source</td><td>Breakpoint|Toggle<br />Toggle breakpoint</td><td>F2</td></tr>
+<tr><td>Set/edit conditional INT3 breakpoint</td><td>Disassembler<br />Names, Source</td><td>Breakpoint|Conditional<br />Conditional breakpoint</td><td>Shift+F2</td></tr>
+<tr><td>Set/edit conditional logging breakpoint&nbsp;<span style="color: #999999;">(logs into the Log window)</span></td><td>Disassembler<br />Names, Source</td><td>Breakpoint|Conditional log<br />Conditional log breakpoint</td><td>Shift+F4</td></tr>
+<tr><td>Temporarily disable/restore INT3 breakpoint</td><td>Breakpoints</td><td>Disable<br />Enable</td><td>Space</td></tr>
+<tr><td>Set memory breakpoint&nbsp;<span style="color: #999999;">(only one is allowed)</span></td><td>Disassembler, Dump</td><td>Breakpoint|Memory, on access<br />Breakpoint|Memory, on write</td><td>&nbsp;</td></tr>
+<tr><td>Remove memory breakpoint</td><td>Disassembler, Dump</td><td>Breakpoint|Remove memory breakpoint</td><td>&nbsp;</td></tr>
+<tr><td>Set hardware breakpoint (ME/NT/2000 only)</td><td>Disassembler, Dump</td><td>Breakpoint|Hardware&nbsp;<span style="color: #999999;">(select type and size!)</span></td><td>&nbsp;</td></tr>
+<tr><td>Remove hardware breakpoint</td><td>Main</td><td>Debug|Hardware breakpoints</td><td>&nbsp;</td></tr>
+<tr><td>Set single-short break on access to memory block (NT/2000 only)</td><td>Memory</td><td>Set break-on-access</td><td>F2&nbsp;</td></tr>
+<tr><td>Set break on module, thread, debug string&nbsp;</td><td>Options</td><td>Events</td><td>&nbsp;</td></tr>
+<tr><td>Set new origin</td><td>Disassembler</td><td>New origin here</td><td>&nbsp;</td></tr>
+<tr><td>Display list of all symbolic names</td><td>Disassembler, Dump<br />Modules</td><td>Search for|Name (label)<br />View names</td><td>Ctrl+N</td></tr>
+<tr><td>Context-sensitive help (requires external help file!)</td><td>Disassembler, Names</td><td>Help on symbolic name</td><td>Ctrl+F1</td></tr>
+<tr><td>Find all references in code to selected address range</td><td>Disassembler<br />Dump</td><td>Find references to|Command<br />Find references</td><td>Ctrl+R</td></tr>
+<tr><td>Find all references in code to the constant</td><td>Disassembler</td><td>Find references to|Constant<br />Search for|All constants</td><td>&nbsp;</td></tr>
+<tr><td>Search whole allocated memory</td><td>Memory&nbsp;</td><td>Search<br />Search next</td><td><br />Ctrl+L</td></tr>
+<tr><td>Go to address or value of expression</td><td>Disassembler<br />Dump</td><td>Go to|Expression<br />Go to expression</td><td>Ctrl+G</td></tr>
+<tr><td>Go to previous address/run trace item</td><td>Disassembler</td><td>Go to|Previous</td><td>Minus</td></tr>
+<tr><td>Go to next address/run trace item</td><td>Disassembler</td><td>Go to|Next</td><td>Plus</td></tr>
+<tr><td>Go to previous procedure</td><td>Disassembler</td><td>Go to|Previous procedure</td><td>Ctrl+Minus</td></tr>
+<tr><td>Go to next procedure</td><td>Disassembler</td><td>Go to|Next procedure</td><td>Ctrl+Plus</td></tr>
+<tr><td>View executable file</td><td>Disassembler, Dump, Modules</td><td>View|Executable file</td><td>&nbsp;</td></tr>
+<tr><td>Copy changes to executable file</td><td>Disassembler</td><td>Copy to executable file</td><td>&nbsp;</td></tr>
+<tr><td>Analyse executable code</td><td>Disassembler</td><td>Analysis|Analyse code</td><td>Ctrl+A</td></tr>
+<tr><td>Scan object files and libraries</td><td>Disassembler</td><td>Scan object files</td><td>Ctrl+O</td></tr>
+<tr><td>View resources</td><td>Modules, Memory</td><td>View all resources<br />View resource strings</td><td>&nbsp;</td></tr>
+<tr><td>Suspend/resume thread</td><td>Threads</td><td>Suspend<br />Resume</td><td>&nbsp;</td></tr>
+<tr><td>Display relative addresses</td><td>Disassembler, Dump, Stack</td><td><span style="color: #999999;">Doubleclick address</span></td><td>&nbsp;</td></tr>
+<tr><td>Copy</td><td>Most of windows</td><td>Copy to clipboard</td><td>Ctrl+C</td></tr>
+</tbody></table>
+<b>Frequently used global shortcuts:</b><br /><br />
+<table bgcolor="#ccffff" border="1" cellspacing="2" cols="2" style="width: 100%px;"><tbody>
+<tr><td width="70"><b>Ctrl+F2</b></td><td>Restart program</td></tr>
+<tr><td><b>Alt+F2</b></td><td>Close program</td></tr>
+<tr><td><b>F3</b></td><td>Open new program</td></tr>
+<tr><td><b>F5</b></td><td>Maximize/restore active window</td></tr>
+<tr><td><b>Alt+F5</b></td><td>Make OllyDbg topmost</td></tr>
+<tr><td><b>F7</b></td><td>Step into (entering functions)</td></tr>
+<tr><td><b>Ctrl+F7</b></td><td>Animate into (entering functions)</td></tr>
+<tr><td><b>F8</b></td><td>Step over (executing function calls at once)</td></tr>
+<tr><td><b>Ctrl+F8</b></td><td>Animate over (executing function calls at once)</td></tr>
+<tr><td><b>F9</b></td><td>Run</td></tr>
+<tr><td><b>Shift+F9</b></td><td>Pass exception to standard handler and run</td></tr>
+<tr><td><b>Ctrl+F9</b></td><td>Execute till return</td></tr>
+<tr><td><b>Alt+F9</b></td><td>Execute till user code</td></tr>
+<tr><td><b>Ctrl+F11</b></td><td>Trace into</td></tr>
+<tr><td><b>F12</b></td><td>Pause</td></tr>
+<tr><td><b>Ctrl+F12</b></td><td>Trace over</td></tr>
+<tr><td><b>Alt+B</b></td><td>Open Breakpoints window</td></tr>
+<tr><td><b>Alt+C</b></td><td>Open CPU window</td></tr>
+<tr><td><b>Alt+E</b></td><td>Open Modules window</td></tr>
+<tr><td><b>Alt+L</b></td><td>Open Log window</td></tr>
+<tr><td><b>Alt+M</b></td><td>Open Memory window</td></tr>
+<tr><td><b>Alt+O</b></td><td>Open Options dialog</td></tr>
+<tr><td><b>Ctrl+T</b></td><td>Set condition to pause Run trace</td></tr>
+<tr><td><b>Alt+X</b></td><td>Close OllyDbg</td></tr>
+</tbody></table>
+<b>Frequently used Disasembler shortcuts:</b><br /><br />
+<table bgcolor="#ccffff" border="1" cellspacing="2" cols="2" style="width: 100%px;"><tbody>
+<tr><td width="70"><b>F2</b></td><td>Toggle breakpoint</td></tr>
+<tr><td width="40"><b>Shift+F2</b></td><td>Set conditional breakpoint</td></tr>
+<tr><td><b>F4</b></td><td>Run to selection</td></tr>
+<tr><td><b>Alt+F7</b></td><td>Go to previous reference</td></tr>
+<tr><td><b>Alt+F8</b></td><td>Go to next reference</td></tr>
+<tr><td><b>Ctrl+A</b></td><td>Analyse code</td></tr>
+<tr><td><b>Ctrl+B</b></td><td>Start binary search</td></tr>
+<tr><td><b>Ctrl+C</b></td><td>Copy selection to clipboard</td></tr>
+<tr><td><b>Ctrl+E</b></td><td>Edit selection in binary format</td></tr>
+<tr><td><b>Ctrl+F</b></td><td>Search for a command</td></tr>
+<tr><td><b>Ctrl+G</b></td><td>Follow expression</td></tr>
+<tr><td><b>Ctrl+J</b></td><td>Show list of jumps to selected line</td></tr>
+<tr><td><b>Ctrl+K</b></td><td>View call tree</td></tr>
+<tr><td><b>Ctrl+L</b></td><td>Repeat last search</td></tr>
+<tr><td><b>Ctrl+N</b></td><td>Open list of labels (names)</td></tr>
+<tr><td><b>Ctrl+O</b></td><td>Scan object files</td></tr>
+<tr><td><b>Ctrl+R</b></td><td>Find references to selected command</td></tr>
+<tr><td><b>Ctrl+S</b></td><td>Search for a sequence of commands</td></tr>
+<tr><td><b>Asterisk</b><span>&nbsp;</span>(*)</td><td>Origin</td></tr>
+<tr><td><b>Enter</b></td><td>Follow jump or call</td></tr>
+<tr><td><b>Plus</b><span>&nbsp;</span>(+)</td><td>Go to next location/next run trace item</td></tr>
+<tr><td><b>Minus</b><span>&nbsp;</span>(-)</td><td>Go to previous location/previous run trace item</td></tr>
+<tr><td><b>Space</b><span>&nbsp;</span>(&nbsp; )</td><td>Assemble</td></tr>
+<tr><td><b>Colon</b><span>&nbsp;</span>(:)</td><td>Add label</td></tr>
+<tr><td><b>Semicolon</b><span>&nbsp;</span>(;)</td><td>Add comment</td></tr>
+</tbody></table>
